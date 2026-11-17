@@ -1,0 +1,2543 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raja Pesawat Sederhana – Edisi Ular Tangga IPA Kelas 8</title>
+  
+  <!-- Google Fonts: Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            fredoka: ['Fredoka', 'sans-serif'],
+          },
+          colors: {
+            brandBlue: '#2563EB',
+            brandYellow: '#FACC15',
+            brandRed: '#EF4444',
+            brandGreen: '#22C55E',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Pengaturan Dasar & Tipografi */
+    * {
+      font-family: 'Fredoka', sans-serif;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: radial-gradient(circle at top left, #DBEAFE 0%, #FEF9C3 45%, #DCFCE7 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: #1E293B;
+    }
+
+    /* Pola Latar Belakang Edukatif Halus */
+    .bg-pattern {
+      background-image: radial-gradient(#3B82F622 2px, transparent 2px), radial-gradient(#EAB30822 2px, #ffffff00 2px);
+      background-size: 32px 32px;
+      background-position: 0 0, 16px 16px;
+    }
+
+    /* Efek Tombol 3D Ramah Anak */
+    .btn-chunky {
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 6px 0 rgba(15, 23, 42, 0.22), 0 10px 18px rgba(15, 23, 42, 0.12);
+    }
+    .btn-chunky:hover:not(:disabled) {
+      transform: translateY(-2px);
+      filter: brightness(1.04);
+    }
+    .btn-chunky:active:not(:disabled) {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 rgba(15, 23, 42, 0.25), 0 4px 8px rgba(15, 23, 42, 0.1);
+    }
+    .btn-chunky:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Kartu dengan Border Tebal Kartun */
+    .cartoon-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 4px solid #1E293B;
+      box-shadow: 0 8px 0 #1E293B;
+      border-radius: 1.5rem;
+    }
+
+    .cartoon-card-sm {
+      background: rgba(255, 255, 255, 0.96);
+      border: 3px solid #1E293B;
+      box-shadow: 0 5px 0 #1E293B;
+      border-radius: 1.15rem;
+    }
+
+    /* Animasi Mengambang (Floating) */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    .animate-float {
+      animation: floatSlow 3.5s ease-in-out infinite;
+    }
+
+    /* Animasi Dadu Berputar */
+    @keyframes diceTumble {
+      0% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-22deg) scale(1.15); }
+      50% { transform: rotate(24deg) scale(1.2); }
+      75% { transform: rotate(-16deg) scale(1.12); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+    .dice-rolling {
+      animation: diceTumble 0.45s ease-in-out infinite;
+    }
+
+    /* Animasi Pion Melompat */
+    @keyframes pawnHop {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -82%) scale(1.18); }
+    }
+    .pawn-hopping {
+      animation: pawnHop 0.3s ease-out;
+    }
+
+    /* Animasi Kilau Jawaban Benar */
+    @keyframes sparklePop {
+      0% { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      50% { transform: scale(1.03); box-shadow: 0 0 0 14px rgba(34, 197, 94, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+    .correct-sparkle {
+      animation: sparklePop 0.6s ease-out;
+    }
+
+    /* Animasi Getar Jawaban Salah */
+    @keyframes wrongShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); }
+    }
+    .wrong-shake {
+      animation: wrongShake 0.45s ease-in-out;
+    }
+
+    /* Animasi Ular & Tangga Highlight */
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 3px rgba(250, 204, 21, 0.4)); }
+      50% { filter: drop-shadow(0 0 14px rgba(250, 204, 21, 1)); }
+    }
+    .special-active {
+      animation: pulseGlow 0.5s ease-in-out infinite;
+    }
+
+    /* Transisi Pion Halus di Atas Papan */
+    .game-pawn {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      transition: left 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 30;
+      pointer-events: none;
+    }
+    .game-pawn.sliding {
+      transition: left 0.85s cubic-bezier(0.22, 1, 0.36, 1), top 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Scrollbar Kustom */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1F5F9;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #94A3B8;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748B;
+    }
+  </style>
+</head>
+<body class="bg-pattern selection:bg-yellow-300 selection:text-slate-900">
+
+  <!-- Canvas Konfeti Kemenangan -->
+  <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50 hidden"></canvas>
+
+  <!-- Tombol Kontrol Suara Global (Pojok Kanan Atas) -->
+  <div class="fixed top-3 right-3 z-40 flex items-center gap-2">
+    <button id="soundToggleBtn" onclick="toggleSound()" aria-label="Pengaturan Suara"
+      class="btn-chunky bg-yellow-400 hover:bg-yellow-300 text-slate-900 border-3 border-slate-900 px-3.5 py-2 rounded-2xl font-bold text-sm sm:text-base flex items-center gap-2">
+      <span id="soundIcon" class="text-lg">🔊</span>
+      <span id="soundLabel" class="hidden sm:inline">Suara: ON</span>
+    </button>
+  </div>
+
+  <!-- Toast Notifikasi Interaktif -->
+  <div id="toastContainer" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-md pointer-events-none flex flex-col gap-2"></div>
+
+  <!-- ===================================================================== -->
+  <!-- 1. HALAMAN AWAL (START SCREEN)                                        -->
+  <!-- ===================================================================== -->
+  <main id="startScreen" class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 pt-16 pb-10">
+    <div class="w-full max-w-4xl cartoon-card p-5 sm:p-8 relative overflow-hidden">
+      
+      <!-- Dekorasi Sudut Warna-warni -->
+      <div class="absolute -top-10 -left-10 w-32 h-32 bg-blue-400/20 rounded-full blur-xl pointer-events-none"></div>
+      <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-yellow-400/25 rounded-full blur-xl pointer-events-none"></div>
+
+      <!-- Header Judul & Ilustrasi Kartun Pesawat Sederhana -->
+      <div class="text-center mb-6">
+        <div class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wide border-2 border-slate-900 shadow-sm mb-3">
+          <span>🔬</span>
+          <span>MATERI IPA SMP KELAS 8 • PESAWAT SEDERHANA</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight drop-shadow-sm">
+          <span class="text-blue-600">RAJA</span> <span class="text-red-500">PESAWAT</span> <span class="text-green-600">SEDERHANA</span>
+        </h1>
+        <p class="text-lg sm:text-2xl font-bold text-amber-500 mt-1">
+          🎲 Petualangan Ular Tangga IPA Kelas 8 🪜🐍
+        </p>
+
+        <!-- Ilustrasi SVG Kartun Pesawat Sederhana & Mini Papan -->
+        <div class="my-4 flex justify-center">
+          <svg viewBox="0 0 640 130" class="w-full max-w-2xl h-auto animate-float" aria-label="Ilustrasi Alat Pesawat Sederhana">
+            <!-- Latar Kartu Ilustrasi -->
+            <rect x="8" y="8" width="624" height="114" rx="22" fill="#EFF6FF" stroke="#1E293B" stroke-width="3.5"/>
+            
+            <!-- 1. Jungkat-Jungkit (Tuas Golongan I) -->
+            <g transform="translate(30, 22)">
+              <rect x="0" y="0" width="105" height="86" rx="14" fill="#FEF08A" stroke="#1E293B" stroke-width="2.5"/>
+              <polygon points="52,48 40,70 64,70" fill="#EF4444" stroke="#1E293B" stroke-width="2"/>
+              <line x1="16" y1="54" x2="88" y2="38" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="22" cy="44" r="8" fill="#3B82F6" stroke="#1E293B" stroke-width="2"/>
+              <circle cx="82" cy="29" r="8" fill="#22C55E" stroke="#1E293B" stroke-width="2"/>
+              <text x="52" y="81" text-anchor="middle" font-size="10" font-weight="700" fill="#1E293B">TUAS</text>
+            </g>
+
+            <!-- 2. Katrol -->
+            <g transform="translate(150, 22)">
+              <rect x="0" y="0" width="105" height="86" rx="14" fill="#DBEAFE" stroke="#1E293B" stroke-width="2.5"/>
+              <line x1="25" y1="12" x2="80" y2="12" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+              <line x1="52" y1="12" x2="52" y2="32" stroke="#1E293B" stroke-width="3"/>
+              <circle cx="52" cy="34" r="14" fill="#FACC15" stroke="#1E293B" stroke-width="2.5"/>
+              <circle cx="52" cy="34" r="4" fill="#1E293B"/>
+              <line x1="38" y1="34" x2="38" y2="62" stroke="#EF4444" stroke-width="2.5"/>
+              <line x1="66" y1="34" x2="66" y2="58" stroke="#EF4444" stroke-width="2.5"/>
+              <rect x="30" y="56" width="16" height="14" rx="3" fill="#22C55E" stroke="#1E293B" stroke-width="2"/>
+              <text x="52" y="81" text-anchor="middle" font-size="10" font-weight="700" fill="#1E293B">KATROL</text>
+            </g>
+
+            <!-- 3. Bidang Miring & Tangga -->
+            <g transform="translate(270, 22)">
+              <rect x="0" y="0" width="105" height="86" rx="14" fill="#DCFCE7" stroke="#1E293B" stroke-width="2.5"/>
+              <polygon points="18,68 88,68 88,26" fill="#4ADE80" stroke="#1E293B" stroke-width="2.5" stroke-linejoin="round"/>
+              <rect x="44" y="34" width="16" height="14" rx="2" transform="rotate(-31 52 41)" fill="#F97316" stroke="#1E293B" stroke-width="2"/>
+              <text x="52" y="81" text-anchor="middle" font-size="10" font-weight="700" fill="#1E293B">BIDANG MIRING</text>
+            </g>
+
+            <!-- 4. Roda Berporos -->
+            <g transform="translate(390, 22)">
+              <rect x="0" y="0" width="105" height="86" rx="14" fill="#FEE2E2" stroke="#1E293B" stroke-width="2.5"/>
+              <circle cx="52" cy="40" r="22" fill="none" stroke="#2563EB" stroke-width="5"/>
+              <circle cx="52" cy="40" r="22" fill="none" stroke="#1E293B" stroke-width="2"/>
+              <circle cx="52" cy="40" r="7" fill="#FACC15" stroke="#1E293B" stroke-width="2"/>
+              <line x1="52" y1="18" x2="52" y2="62" stroke="#1E293B" stroke-width="2"/>
+              <line x1="30" y1="40" x2="74" y2="40" stroke="#1E293B" stroke-width="2"/>
+              <text x="52" y="81" text-anchor="middle" font-size="10" font-weight="700" fill="#1E293B">RODA BERPOROS</text>
+            </g>
+
+            <!-- 5. Ular Tangga & Mahkota Raja -->
+            <g transform="translate(510, 22)">
+              <rect x="0" y="0" width="100" height="86" rx="14" fill="#F3E8FF" stroke="#1E293B" stroke-width="2.5"/>
+              <path d="M22,64 C22,42 46,48 46,28 C46,16 32,16 32,26" fill="none" stroke="#16A34A" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="32" cy="24" r="5" fill="#16A34A" stroke="#1E293B" stroke-width="1.5"/>
+              <line x1="64" y1="64" x2="76" y2="20" stroke="#D97706" stroke-width="3.5" stroke-linecap="round"/>
+              <line x1="76" y1="64" x2="88" y2="20" stroke="#D97706" stroke-width="3.5" stroke-linecap="round"/>
+              <line x1="67" y1="52" x2="79" y2="52" stroke="#D97706" stroke-width="3"/>
+              <line x1="70" y1="38" x2="82" y2="38" stroke="#D97706" stroke-width="3"/>
+              <line x1="73" y1="26" x2="85" y2="26" stroke="#D97706" stroke-width="3"/>
+              <text x="50" y="81" text-anchor="middle" font-size="10" font-weight="700" fill="#1E293B">ULAR TANGGA</text>
+            </g>
+          </svg>
+        </div>
+
+        <p class="text-slate-700 text-sm sm:text-base max-w-2xl mx-auto font-medium bg-yellow-100 border-2 border-yellow-400 rounded-2xl px-4 py-2.5">
+          "Jelajahi papan permainan, jawab pertanyaan IPA, hindari ular, manfaatkan tangga, dan jadilah Raja Pesawat Sederhana!"
+        </p>
+      </div>
+
+      <!-- Form Input Identitas Pemain -->
+      <div class="bg-slate-50 border-3 border-slate-900 rounded-2xl p-4 sm:p-6 mb-6">
+        <h2 class="text-lg sm:text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+          <span>📝</span>
+          <span>Data Pemain & Kelas</span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Nama Pemain 1 (Pion Merah) -->
+          <div>
+            <label for="inputPlayer1" class="block text-sm font-bold text-red-600 mb-1.5 flex items-center gap-1.5">
+              <span class="inline-block w-4 h-4 rounded-full bg-red-500 border-2 border-slate-900"></span>
+              <span>Nama Pemain 1 (Pion Merah)</span>
+            </label>
+            <input type="text" id="inputPlayer1" maxlength="20" placeholder="Contoh: Budi Santoso"
+              class="w-full px-4 py-3 rounded-xl border-3 border-slate-900 bg-white font-semibold text-slate-800 focus:outline-none focus:ring-4 focus:ring-red-300 transition" />
+          </div>
+
+          <!-- Nama Pemain 2 (Pion Biru) -->
+          <div>
+            <label for="inputPlayer2" class="block text-sm font-bold text-blue-600 mb-1.5 flex items-center gap-1.5">
+              <span class="inline-block w-4 h-4 rounded-full bg-blue-600 border-2 border-slate-900"></span>
+              <span>Nama Pemain 2 (Pion Biru)</span>
+            </label>
+            <input type="text" id="inputPlayer2" maxlength="20" placeholder="Contoh: Siti Aminah"
+              class="w-full px-4 py-3 rounded-xl border-3 border-slate-900 bg-white font-semibold text-slate-800 focus:outline-none focus:ring-4 focus:ring-blue-300 transition" />
+          </div>
+
+          <!-- Kelas -->
+          <div>
+            <label for="inputClass" class="block text-sm font-bold text-slate-700 mb-1.5">
+              🏫 Kelas
+            </label>
+            <input type="text" id="inputClass" maxlength="15" placeholder="Contoh: VIII-A"
+              class="w-full px-4 py-3 rounded-xl border-3 border-slate-900 bg-white font-semibold text-slate-800 focus:outline-none focus:ring-4 focus:ring-yellow-300 transition" />
+          </div>
+
+          <!-- Nama Sekolah -->
+          <div>
+            <label for="inputSchool" class="block text-sm font-bold text-slate-700 mb-1.5">
+              🏛️ Nama Sekolah
+            </label>
+            <input type="text" id="inputSchool" maxlength="35" placeholder="Contoh: SMP Negeri 1 Nusantara"
+              class="w-full px-4 py-3 rounded-xl border-3 border-slate-900 bg-white font-semibold text-slate-800 focus:outline-none focus:ring-4 focus:ring-green-300 transition" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Tombol Navigasi Halaman Awal -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+        <button onclick="startNewGame()"
+          class="btn-chunky bg-green-500 hover:bg-green-400 text-white border-3 border-slate-900 py-4 px-5 rounded-2xl font-extrabold text-lg flex items-center justify-center gap-2">
+          <span>🚀</span>
+          <span>MULAI BERMAIN</span>
+        </button>
+
+        <button onclick="openLeaderboard('start')"
+          class="btn-chunky bg-yellow-400 hover:bg-yellow-300 text-slate-900 border-3 border-slate-900 py-4 px-5 rounded-2xl font-extrabold text-lg flex items-center justify-center gap-2">
+          <span>🏆</span>
+          <span>LIHAT LEADERBOARD</span>
+        </button>
+
+        <button onclick="toggleInstructionsModal(true)"
+          class="btn-chunky bg-blue-600 hover:bg-blue-500 text-white border-3 border-slate-900 py-4 px-5 rounded-2xl font-extrabold text-lg flex items-center justify-center gap-2">
+          <span>📖</span>
+          <span>PETUNJUK PERMAINAN</span>
+        </button>
+      </div>
+
+      <!-- Kredit Kreator di Halaman Utama -->
+      <div class="mt-6 pt-4 border-t-2 border-dashed border-slate-300 text-center">
+        <div class="inline-flex items-center gap-2 bg-amber-100 text-slate-900 border-2 border-slate-900 px-4 py-1.5 rounded-full text-xs sm:text-sm font-extrabold shadow-xs">
+          <span>👩‍🏫</span>
+          <span>Kreator: <span class="text-blue-700">Lilis Cholisoh</span></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- 2. HALAMAN PERMAINAN (GAME SCREEN)                                    -->
+  <!-- ===================================================================== -->
+  <section id="gameScreen" class="hidden min-h-screen p-3 sm:p-5 pt-16 pb-8 max-w-6xl mx-auto">
+    
+    <!-- Top Header Bar Permainan -->
+    <div class="cartoon-card-sm px-4 py-3 mb-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="text-2xl">👑</span>
+        <div>
+          <h2 class="font-extrabold text-base sm:text-xl text-slate-900 leading-tight">RAJA PESAWAT SEDERHANA</h2>
+          <p id="headerSchoolInfo" class="text-xs sm:text-sm font-semibold text-slate-600">Kelas VIII • SMP</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="toggleInstructionsModal(true)"
+          class="btn-chunky bg-yellow-300 hover:bg-yellow-200 text-slate-900 border-2 border-slate-900 px-3 py-2 rounded-xl font-bold text-xs sm:text-sm">
+          ❓ Bantuan
+        </button>
+        <button onclick="confirmReturnToMenu()"
+          class="btn-chunky bg-slate-200 hover:bg-slate-300 text-slate-900 border-2 border-slate-900 px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-1.5">
+          <span>🏠</span>
+          <span>Menu Utama</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Layout Utama: Kiri Papan 5x5, Kanan Panel Pemain & Dadu -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      
+      <!-- KOLOM PAPAN ULAR TANGGA 5x5 (7 Kolom di Desktop) -->
+      <div class="lg:col-span-7 flex flex-col items-center">
+        <div class="w-full max-w-[540px] cartoon-card p-3 sm:p-4 bg-amber-50">
+          
+          <!-- Legenda Singkat Tangga & Ular -->
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5 px-1 text-xs sm:text-sm font-bold">
+            <span class="inline-flex items-center gap-1.5 bg-green-100 text-green-800 border-2 border-green-500 px-2.5 py-1 rounded-full">
+              🪜 Tangga: 3→9, 6→14, 11→19, 16→23
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-red-100 text-red-800 border-2 border-red-500 px-2.5 py-1 rounded-full">
+              🐍 Ular: 15→7, 18→10, 20→12, 24→17
+            </span>
+          </div>
+
+          <!-- Container Aspek Rasio 1:1 untuk Papan + SVG + Pion -->
+          <div id="boardWrapper" class="relative w-full aspect-square rounded-2xl border-4 border-slate-900 overflow-hidden shadow-inner bg-white select-none">
+            
+            <!-- Grid 5x5 Kotak (25 Kotak Zig-Zag) -->
+            <div id="boardGrid" class="grid grid-cols-5 grid-rows-5 w-full h-full"></div>
+
+            <!-- Layer SVG Visual Tangga & Ular -->
+            <svg id="boardOverlaySvg" viewBox="0 0 500 500" class="absolute inset-0 w-full h-full pointer-events-none z-20"></svg>
+
+            <!-- Pion Pemain 1 (Merah) -->
+            <div id="pawn1" class="game-pawn w-9 h-9 sm:w-11 sm:h-11" title="Pemain 1 (Merah)">
+              <svg viewBox="0 0 64 64" class="w-full h-full drop-shadow-md">
+                <ellipse cx="32" cy="57" rx="18" ry="5" fill="rgba(0,0,0,0.28)"/>
+                <path d="M16 52 C16 38, 48 38, 48 52 Z" fill="#EF4444" stroke="#1E293B" stroke-width="3.5"/>
+                <circle cx="32" cy="26" r="14" fill="#F87171" stroke="#1E293B" stroke-width="3.5"/>
+                <circle cx="27" cy="24" r="2.5" fill="#1E293B"/>
+                <circle cx="37" cy="24" r="2.5" fill="#1E293B"/>
+                <path d="M27 30 Q32 34 37 30" fill="none" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="32" y="10" text-anchor="middle" font-size="11" font-weight="900" fill="#DC2626" stroke="#FFF" stroke-width="2" paint-order="stroke">P1</text>
+              </svg>
+            </div>
+
+            <!-- Pion Pemain 2 (Biru) -->
+            <div id="pawn2" class="game-pawn w-9 h-9 sm:w-11 sm:h-11" title="Pemain 2 (Biru)">
+              <svg viewBox="0 0 64 64" class="w-full h-full drop-shadow-md">
+                <ellipse cx="32" cy="57" rx="18" ry="5" fill="rgba(0,0,0,0.28)"/>
+                <path d="M16 52 C16 38, 48 38, 48 52 Z" fill="#2563EB" stroke="#1E293B" stroke-width="3.5"/>
+                <circle cx="32" cy="26" r="14" fill="#60A5FA" stroke="#1E293B" stroke-width="3.5"/>
+                <circle cx="27" cy="24" r="2.5" fill="#1E293B"/>
+                <circle cx="37" cy="24" r="2.5" fill="#1E293B"/>
+                <path d="M27 30 Q32 34 37 30" fill="none" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="32" y="10" text-anchor="middle" font-size="11" font-weight="900" fill="#1D4ED8" stroke="#FFF" stroke-width="2" paint-order="stroke">P2</text>
+              </svg>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- KOLOM PANEL STATUS PEMAIN & KONTROL DADU (5 Kolom di Desktop) -->
+      <div class="lg:col-span-5 flex flex-col gap-4">
+        
+        <!-- Kartu Status Kedua Pemain -->
+        <div class="grid grid-cols-2 gap-3">
+          <!-- Kartu Pemain 1 (Merah) -->
+          <div id="cardPlayer1" class="cartoon-card-sm p-3.5 bg-red-50 transition-all duration-300 relative">
+            <div id="turnBadge1" class="hidden absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[11px] font-extrabold px-2.5 py-0.5 rounded-full border-2 border-slate-900 whitespace-nowrap shadow">
+              🔥 GILIRANMU!
+            </div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-4 h-4 rounded-full bg-red-500 border-2 border-slate-900 shrink-0"></span>
+              <h3 id="displayP1Name" class="font-extrabold text-slate-900 text-sm sm:text-base truncate">Pemain 1</h3>
+            </div>
+            <div class="space-y-1 text-xs sm:text-sm font-bold text-slate-700">
+              <div class="flex justify-between bg-white px-2.5 py-1 rounded-lg border border-red-200">
+                <span>Posisi:</span>
+                <span id="displayP1Pos" class="text-red-600 font-extrabold">Kotak 1</span>
+              </div>
+              <div class="flex justify-between bg-white px-2.5 py-1 rounded-lg border border-red-200">
+                <span>Skor:</span>
+                <span id="displayP1Score" class="text-amber-600 font-extrabold">0 Poin</span>
+              </div>
+              <div class="flex justify-between text-[11px] text-slate-500 px-1 pt-0.5">
+                <span>Dadu: <strong id="displayP1Rolls" class="text-slate-800">0</strong>x</span>
+                <span>Benar: <strong id="displayP1Correct" class="text-green-600">0</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kartu Pemain 2 (Biru) -->
+          <div id="cardPlayer2" class="cartoon-card-sm p-3.5 bg-blue-50 transition-all duration-300 relative">
+            <div id="turnBadge2" class="hidden absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[11px] font-extrabold px-2.5 py-0.5 rounded-full border-2 border-slate-900 whitespace-nowrap shadow">
+              🔥 GILIRANMU!
+            </div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-4 h-4 rounded-full bg-blue-600 border-2 border-slate-900 shrink-0"></span>
+              <h3 id="displayP2Name" class="font-extrabold text-slate-900 text-sm sm:text-base truncate">Pemain 2</h3>
+            </div>
+            <div class="space-y-1 text-xs sm:text-sm font-bold text-slate-700">
+              <div class="flex justify-between bg-white px-2.5 py-1 rounded-lg border border-blue-200">
+                <span>Posisi:</span>
+                <span id="displayP2Pos" class="text-blue-600 font-extrabold">Kotak 1</span>
+              </div>
+              <div class="flex justify-between bg-white px-2.5 py-1 rounded-lg border border-blue-200">
+                <span>Skor:</span>
+                <span id="displayP2Score" class="text-amber-600 font-extrabold">0 Poin</span>
+              </div>
+              <div class="flex justify-between text-[11px] text-slate-500 px-1 pt-0.5">
+                <span>Dadu: <strong id="displayP2Rolls" class="text-slate-800">0</strong>x</span>
+                <span>Benar: <strong id="displayP2Correct" class="text-green-600">0</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel Kontrol Dadu Interaktif -->
+        <div class="cartoon-card p-4 sm:p-5 text-center bg-gradient-to-b from-white to-yellow-50">
+          <div id="turnIndicatorBanner" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500 text-white font-extrabold text-sm sm:text-base border-2 border-slate-900 mb-4 shadow-sm">
+            <span>🎯</span>
+            <span id="turnIndicatorText">Giliran Pemain 1 (Merah)</span>
+          </div>
+
+          <!-- Visual Dadu 3D Kartun -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 my-2">
+            <div id="diceBox" class="w-24 h-24 sm:w-28 sm:h-28 bg-white border-4 border-slate-900 rounded-3xl shadow-[0_6px_0_#1E293B] flex items-center justify-center p-3">
+              <svg id="diceSvg" viewBox="0 0 100 100" class="w-full h-full">
+                <!-- Titik Dadu Dirender Dinamis oleh JS -->
+                <circle cx="50" cy="50" r="11" fill="#EF4444" />
+              </svg>
+            </div>
+
+            <div class="flex-1 w-full sm:w-auto">
+              <button id="rollDiceBtn" onclick="handleRollDice()"
+                class="btn-chunky w-full bg-yellow-400 hover:bg-yellow-300 text-slate-900 border-3 border-slate-900 py-4 px-6 rounded-2xl font-extrabold text-lg sm:text-xl flex items-center justify-center gap-2.5">
+                <span class="text-2xl">🎲</span>
+                <span>LEMPAR DADU</span>
+              </button>
+              <p id="diceResultLabel" class="text-xs sm:text-sm font-bold text-slate-600 mt-2">
+                Tekan tombol untuk melempar dadu!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Log Aktivitas Permainan -->
+        <div class="cartoon-card-sm p-3.5 bg-slate-50">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">📢 Info Langkah Terakhir</span>
+            <span id="totalRollsBadge" class="text-xs font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full">Total Lemparan: 0</span>
+          </div>
+          <p id="gameStatusMessage" class="text-sm font-bold text-slate-800 bg-white p-2.5 rounded-xl border-2 border-slate-200 min-h-[48px] flex items-center">
+            Permainan dimulai! Kedua pion berada di Kotak 1. Silakan lempar dadu!
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 3. MODAL KUIS INTERAKTIF IPA (PESAWAT SEDERHANA)                      -->
+  <!-- ===================================================================== -->
+  <div id="quizModal" class="hidden fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div id="quizModalCard" class="cartoon-card w-full max-w-2xl p-5 sm:p-7 bg-white my-auto relative">
+      
+      <!-- Header Modal Kuis -->
+      <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b-3 border-slate-200">
+        <div class="flex items-center gap-2">
+          <span id="quizNumberBadge" class="bg-blue-600 text-white font-extrabold text-xs sm:text-sm px-3 py-1 rounded-full border-2 border-slate-900">
+            SOAL #1
+          </span>
+          <span id="quizCategoryBadge" class="bg-yellow-300 text-slate-900 font-bold text-xs sm:text-sm px-3 py-1 rounded-full border-2 border-slate-900">
+            Tuas / Pengungkit
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span id="quizDifficultyBadge" class="bg-green-100 text-green-800 font-bold text-xs px-2.5 py-1 rounded-lg border border-green-400">
+            Mudah
+          </span>
+          <span id="quizPlayerBadge" class="bg-red-500 text-white font-bold text-xs sm:text-sm px-3 py-1 rounded-full border-2 border-slate-900">
+            Pemain 1
+          </span>
+        </div>
+      </div>
+
+      <!-- Pertanyaan -->
+      <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-4 mb-4">
+        <p id="quizQuestionText" class="text-base sm:text-lg font-bold text-slate-900 leading-relaxed">
+          Pertanyaan kuis akan tampil di sini...
+        </p>
+      </div>
+
+      <!-- Pilihan Jawaban (A, B, C, D) -->
+      <div id="quizOptionsContainer" class="grid grid-cols-1 gap-2.5 mb-4">
+        <!-- Tombol opsi dirender oleh JavaScript -->
+      </div>
+
+      <!-- Feedback & Pembahasan (Muncul setelah menjawab) -->
+      <div id="quizFeedbackSection" class="hidden space-y-3 mt-4 pt-3 border-t-3 border-slate-200">
+        <div id="quizResultBanner" class="p-3 rounded-xl font-extrabold text-sm sm:text-base flex items-center justify-between border-2">
+          <span id="quizResultText">Jawaban Benar!</span>
+          <span id="quizPointsEarned" class="px-2.5 py-0.5 rounded-full bg-white text-slate-900 text-xs sm:text-sm border border-slate-900">+10 Poin</span>
+        </div>
+
+        <!-- Kotak Kuning Pembahasan -->
+        <div class="bg-yellow-100 border-2 border-yellow-500 rounded-xl p-3.5 text-slate-900">
+          <p class="text-xs font-extrabold uppercase tracking-wider text-amber-800 mb-1">💡 Pembahasan Singkat:</p>
+          <p id="quizExplanationText" class="text-xs sm:text-sm font-semibold leading-relaxed">
+            Penjelasan materi IPA...
+          </p>
+        </div>
+
+        <button id="continueAfterQuizBtn" onclick="closeQuizAndNextTurn()"
+          class="btn-chunky w-full bg-blue-600 hover:bg-blue-500 text-white border-3 border-slate-900 py-3.5 px-6 rounded-2xl font-extrabold text-base sm:text-lg flex items-center justify-center gap-2">
+          <span>LANJUTKAN PERMAINAN</span>
+          <span>➡️</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 4. HALAMAN GAME OVER / KEMENANGAN                                     -->
+  <!-- ===================================================================== -->
+  <section id="gameOverScreen" class="hidden min-h-screen flex items-center justify-center p-4 sm:p-6 pt-16 pb-10">
+    <div class="cartoon-card w-full max-w-3xl p-5 sm:p-8 text-center bg-gradient-to-b from-yellow-50 via-white to-blue-50">
+      
+      <div class="inline-block bg-yellow-400 text-slate-900 font-extrabold text-xs sm:text-sm px-4 py-1.5 rounded-full border-2 border-slate-900 mb-3 shadow-sm">
+        🏆 PERTANDINGAN SELESAI • KOTAK 25 TERCAPAI!
+      </div>
+
+      <div class="text-5xl sm:text-6xl mb-2 animate-bounce">👑</div>
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 leading-tight mb-2">
+        SELAMAT! KAMU MENJADI <span class="text-blue-600">RAJA PESAWAT SEDERHANA!</span>
+      </h1>
+      <p id="victoryMotivationText" class="text-sm sm:text-base font-bold text-green-700 bg-green-100 border-2 border-green-400 rounded-xl px-4 py-2 inline-block mb-6">
+        Luar biasa! Pemahamanmu tentang pesawat sederhana sangat hebat!
+      </p>
+
+      <!-- Kartu Ringkasan Pemenang Utama -->
+      <div class="bg-white border-3 border-slate-900 rounded-2xl p-4 sm:p-5 mb-5 text-left shadow-md">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-slate-200 pb-3 mb-4">
+          <div>
+            <span class="text-xs font-extrabold uppercase text-amber-600">🥇 Pemenang Utama</span>
+            <h2 id="goWinnerName" class="text-xl sm:text-2xl font-extrabold text-slate-900">Nama Pemenang</h2>
+          </div>
+          <div class="text-right">
+            <span id="goClassSchool" class="text-xs sm:text-sm font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full border border-blue-300">
+              VIII-A • SMPN 1
+            </span>
+          </div>
+        </div>
+
+        <!-- Grid Statistik Lengkap -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+          <div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-3 text-center">
+            <span class="block text-xs font-bold text-slate-500">Total Poin</span>
+            <span id="goWinnerScore" class="text-xl sm:text-2xl font-extrabold text-amber-600">0</span>
+          </div>
+          <div class="bg-green-50 border-2 border-green-300 rounded-xl p-3 text-center">
+            <span class="block text-xs font-bold text-slate-500">Jawaban Benar</span>
+            <span id="goWinnerCorrect" class="text-xl sm:text-2xl font-extrabold text-green-600">0</span>
+          </div>
+          <div class="bg-red-50 border-2 border-red-300 rounded-xl p-3 text-center">
+            <span class="block text-xs font-bold text-slate-500">Jawaban Salah</span>
+            <span id="goWinnerWrong" class="text-xl sm:text-2xl font-extrabold text-red-600">0</span>
+          </div>
+          <div class="bg-blue-50 border-2 border-blue-300 rounded-xl p-3 text-center">
+            <span class="block text-xs font-bold text-slate-500">Keberhasilan Kuis</span>
+            <span id="goWinnerAccuracy" class="text-xl sm:text-2xl font-extrabold text-blue-600">0%</span>
+          </div>
+        </div>
+
+        <!-- Detail Perbandingan Kedua Pemain -->
+        <div class="bg-slate-50 rounded-xl p-3.5 border-2 border-slate-200 space-y-2 text-xs sm:text-sm font-bold text-slate-700">
+          <div class="flex flex-wrap justify-between gap-2">
+            <span>🥈 Pemain Kedua: <strong id="goRunnerUpName" class="text-slate-900">-</strong></span>
+            <span>📍 Posisi Akhir: <strong id="goFinalPositions" class="text-blue-700">Kotak 25 vs Kotak 18</strong></span>
+          </div>
+          <div class="flex flex-wrap justify-between gap-2 pt-1 border-t border-slate-200">
+            <span>🎲 Lemparan Dadu Pemenang: <strong id="goWinnerRolls" class="text-slate-900">0x</strong></span>
+            <span>🎲 Total Lemparan Kedua Pemain: <strong id="goTotalRolls" class="text-slate-900">0x</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tombol Aksi Game Over -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <button onclick="playAgainSamePlayers()"
+          class="btn-chunky bg-green-500 hover:bg-green-400 text-white border-3 border-slate-900 py-3.5 px-4 rounded-2xl font-extrabold text-base flex items-center justify-center gap-2">
+          <span>🔄</span>
+          <span>MAIN LAGI</span>
+        </button>
+
+        <button onclick="openLeaderboard('gameover')"
+          class="btn-chunky bg-yellow-400 hover:bg-yellow-300 text-slate-900 border-3 border-slate-900 py-3.5 px-4 rounded-2xl font-extrabold text-base flex items-center justify-center gap-2">
+          <span>🏆</span>
+          <span>LIHAT LEADERBOARD</span>
+        </button>
+
+        <button onclick="goToStartScreen()"
+          class="btn-chunky bg-blue-600 hover:bg-blue-500 text-white border-3 border-slate-900 py-3.5 px-4 rounded-2xl font-extrabold text-base flex items-center justify-center gap-2">
+          <span>🏠</span>
+          <span>KEMBALI KE BERANDA</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 5. HALAMAN LEADERBOARD (LOCALSTORAGE)                                 -->
+  <!-- ===================================================================== -->
+  <section id="leaderboardScreen" class="hidden min-h-screen p-4 sm:p-6 pt-16 pb-10 max-w-5xl mx-auto">
+    <div class="cartoon-card p-5 sm:p-8 bg-white">
+      
+      <!-- Header Leaderboard -->
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 flex items-center gap-2">
+            <span>🏆</span>
+            <span>PAPAN PERINGKAT (LEADERBOARD)</span>
+          </h1>
+          <p class="text-xs sm:text-sm font-bold text-slate-600">
+            Diurutkan berdasarkan Skor Tertinggi & Persentase Jawaban Benar
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="openDeleteLeaderboardModal()"
+            class="btn-chunky bg-red-500 hover:bg-red-400 text-white border-2 border-slate-900 px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-1.5">
+            <span>🗑️</span>
+            <span>Hapus Leaderboard</span>
+          </button>
+          <button onclick="closeLeaderboard()"
+            class="btn-chunky bg-blue-600 hover:bg-blue-500 text-white border-2 border-slate-900 px-4 py-2 rounded-xl font-bold text-xs sm:text-sm">
+            ⬅️ Kembali
+          </button>
+        </div>
+      </div>
+
+      <!-- Podium 3 Besar -->
+      <div id="podiumContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end mb-8 pt-4">
+        <!-- Juara 2 (Kiri pada desktop) -->
+        <div id="podium2" class="order-2 sm:order-1 bg-slate-100 border-3 border-slate-900 rounded-2xl p-4 text-center sm:h-44 flex flex-col justify-center">
+          <div class="text-3xl mb-1">🥈</div>
+          <span class="text-xs font-extrabold uppercase text-slate-500">Juara 2</span>
+          <p class="font-extrabold text-base text-slate-900 truncate">-</p>
+          <p class="text-xs font-bold text-slate-600 truncate">-</p>
+          <span class="mt-2 inline-block bg-slate-300 text-slate-900 font-extrabold text-xs px-3 py-1 rounded-full">0 Poin</span>
+        </div>
+
+        <!-- Juara 1 (Tengah & Paling Tinggi) -->
+        <div id="podium1" class="order-1 sm:order-2 bg-gradient-to-b from-yellow-200 to-amber-100 border-4 border-slate-900 rounded-2xl p-5 text-center sm:h-52 flex flex-col justify-center shadow-lg">
+          <div class="text-4xl mb-1">🥇</div>
+          <span class="text-xs font-extrabold uppercase text-amber-700">Juara 1 • Raja Pesawat Sederhana</span>
+          <p class="font-extrabold text-lg text-slate-900 truncate">-</p>
+          <p class="text-xs font-bold text-slate-700 truncate">-</p>
+          <span class="mt-2 inline-block bg-yellow-400 border-2 border-slate-900 text-slate-900 font-extrabold text-sm px-3.5 py-1 rounded-full">0 Poin</span>
+        </div>
+
+        <!-- Juara 3 (Kanan pada desktop) -->
+        <div id="podium3" class="order-3 bg-orange-50 border-3 border-slate-900 rounded-2xl p-4 text-center sm:h-40 flex flex-col justify-center">
+          <div class="text-3xl mb-1">🥉</div>
+          <span class="text-xs font-extrabold uppercase text-orange-700">Juara 3</span>
+          <p class="font-extrabold text-base text-slate-900 truncate">-</p>
+          <p class="text-xs font-bold text-slate-600 truncate">-</p>
+          <span class="mt-2 inline-block bg-orange-200 text-slate-900 font-extrabold text-xs px-3 py-1 rounded-full">0 Poin</span>
+        </div>
+      </div>
+
+      <!-- Tabel Daftar Skor Terbaik -->
+      <div class="overflow-x-auto rounded-2xl border-3 border-slate-900">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-900 text-white text-xs sm:text-sm">
+              <th class="py-3 px-3 sm:px-4">Peringkat</th>
+              <th class="py-3 px-3 sm:px-4">Nama Pemain</th>
+              <th class="py-3 px-3 sm:px-4">Kelas</th>
+              <th class="py-3 px-3 sm:px-4">Sekolah</th>
+              <th class="py-3 px-3 sm:px-4 text-center">Skor</th>
+              <th class="py-3 px-3 sm:px-4 text-center">Jawaban Benar</th>
+              <th class="py-3 px-3 sm:px-4 text-center">Lemparan</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardTableBody" class="divide-y-2 divide-slate-200 text-xs sm:text-sm font-bold bg-white">
+            <!-- Baris tabel dirender oleh JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 6. MODAL PETUNJUK PERMAINAN                                           -->
+  <!-- ===================================================================== -->
+  <div id="instructionsModal" class="hidden fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+    <div class="cartoon-card w-full max-w-xl p-5 sm:p-7 bg-white my-auto">
+      <div class="flex items-center justify-between border-b-3 border-slate-200 pb-3 mb-4">
+        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+          <span>📖</span>
+          <span>Petunjuk Permainan</span>
+        </h2>
+        <button onclick="toggleInstructionsModal(false)" class="w-9 h-9 rounded-xl bg-red-500 text-white font-extrabold border-2 border-slate-900">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs sm:text-sm font-semibold text-slate-700">
+        <div class="p-3 bg-blue-50 rounded-xl border-2 border-blue-200">
+          <p class="font-extrabold text-blue-800 mb-1">1. Tujuan Permainan 🎯</p>
+          <p>Dua pemain (Pion Merah & Pion Biru) bergantian melempar dadu untuk menjelajahi papan 25 kotak dari <strong>Kotak 1</strong> menuju <strong>Kotak 25</strong>. Pemain pertama yang tepat mencapai Kotak 25 menjadi pemenang!</p>
+        </div>
+
+        <div class="p-3 bg-green-50 rounded-xl border-2 border-green-200">
+          <p class="font-extrabold text-green-800 mb-1">2. Tangga Kemajuan & Tantangan Ular 🪜🐍</p>
+          <p>• Berhenti di dasar <strong>Tangga</strong> (Kotak 3, 6, 11, 16) akan membawamu naik lebih cepat!<br>
+             • Berhenti di kepala <strong>Ular</strong> (Kotak 15, 18, 20, 24) akan membuatmu turun ke ekor ular.</p>
+        </div>
+
+        <div class="p-3 bg-yellow-50 rounded-xl border-2 border-yellow-300">
+          <p class="font-extrabold text-amber-800 mb-1">3. Kuis Edukatif Pesawat Sederhana 🧠</p>
+          <p>• Setiap kali pionmu mendarat di sebuah kotak, muncul pertanyaan IPA kelas 8.<br>
+             • <strong>Jawaban Benar:</strong> Mendapat <strong>+10 Poin</strong>!<br>
+             • <strong>Jawaban Salah:</strong> Mendapat 0 poin, tetapi pionmu <strong>tidak mundur</strong> agar kamu tetap semangat belajar dari pembahasannya!</p>
+        </div>
+
+        <div class="p-3 bg-red-50 rounded-xl border-2 border-red-200">
+          <p class="font-extrabold text-red-800 mb-1">4. Aturan Kotak Akhir (Kotak 25) 👑</p>
+          <p>Jika angka dadu melebihi Kotak 25, pion tetap berada di posisinya dan menunggu giliran berikutnya.</p>
+        </div>
+      </div>
+
+      <button onclick="toggleInstructionsModal(false)"
+        class="btn-chunky w-full mt-5 bg-green-500 hover:bg-green-400 text-white border-3 border-slate-900 py-3 rounded-2xl font-extrabold text-base">
+        SIAP BERMAIN! 👍
+      </button>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 7. MODAL KONFIRMASI KUSTOM (PENGGANTI confirm() & alert())            -->
+  <!-- ===================================================================== -->
+  <div id="customConfirmModal" class="hidden fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="cartoon-card w-full max-w-md p-6 bg-white text-center">
+      <div id="confirmModalIcon" class="text-4xl mb-2">⚠️</div>
+      <h3 id="confirmModalTitle" class="text-xl font-extrabold text-slate-900 mb-2">Konfirmasi</h3>
+      <p id="confirmModalMessage" class="text-sm font-semibold text-slate-600 mb-6">Apakah Anda yakin?</p>
+      <div class="grid grid-cols-2 gap-3">
+        <button id="confirmCancelBtn" onclick="closeCustomConfirm()"
+          class="btn-chunky bg-slate-200 hover:bg-slate-300 text-slate-900 border-2 border-slate-900 py-2.5 px-4 rounded-xl font-extrabold">
+          Batal
+        </button>
+        <button id="confirmOkBtn"
+          class="btn-chunky bg-red-500 hover:bg-red-400 text-white border-2 border-slate-900 py-2.5 px-4 rounded-xl font-extrabold">
+          Ya, Lanjutkan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- JAVASCRIPT UTAMA GAME                                                 -->
+  <!-- ===================================================================== -->
+  <script>
+    /* =========================================================================
+       1. SISTEM AUDIO WEB AUDIO API (TANPA FILE EKSTERNAL)
+       ========================================================================= */
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const icon = document.getElementById('soundIcon');
+      const label = document.getElementById('soundLabel');
+      icon.textContent = soundEnabled ? '🔊' : '🔇';
+      label.textContent = soundEnabled ? 'Suara: ON' : 'Suara: OFF';
+      if (soundEnabled) {
+        initAudio();
+        playClickSound();
+      }
+    }
+
+    function playTone(freq, type, duration, startTimeOffset = 0, volume = 0.18) {
+      if (!soundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime + startTimeOffset;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, now);
+
+      gain.gain.setValueAtTime(volume, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + duration);
+    }
+
+    function playClickSound() {
+      playTone(580, 'sine', 0.08, 0, 0.15);
+    }
+
+    function playDiceSound() {
+      const freqs = [240, 320, 280, 390, 310, 440];
+      freqs.forEach((f, idx) => {
+        playTone(f, 'triangle', 0.06, idx * 0.06, 0.14);
+      });
+    }
+
+    function playStepSound(stepIndex = 0) {
+      playTone(420 + (stepIndex * 35), 'sine', 0.11, 0, 0.16);
+    }
+
+    function playCorrectSound() {
+      playTone(523.25, 'triangle', 0.14, 0.00, 0.2); // C5
+      playTone(659.25, 'triangle', 0.14, 0.10, 0.2); // E5
+      playTone(783.99, 'triangle', 0.16, 0.20, 0.2); // G5
+      playTone(1046.50, 'sine', 0.35, 0.30, 0.22);   // C6
+    }
+
+    function playWrongSound() {
+      playTone(260, 'sawtooth', 0.18, 0.00, 0.14);
+      playTone(195, 'sawtooth', 0.28, 0.16, 0.14);
+    }
+
+    function playLadderSound() {
+      const notes = [392, 440, 493.88, 587.33, 659.25, 783.99];
+      notes.forEach((n, i) => playTone(n, 'sine', 0.13, i * 0.09, 0.18));
+    }
+
+    function playSnakeSound() {
+      if (!soundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(130, now + 0.65);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.65);
+    }
+
+    function playVictorySound() {
+      const fanfare = [
+        { f: 523.25, t: 0.00, d: 0.14 },
+        { f: 523.25, t: 0.15, d: 0.14 },
+        { f: 523.25, t: 0.30, d: 0.14 },
+        { f: 659.25, t: 0.45, d: 0.30 },
+        { f: 587.33, t: 0.78, d: 0.18 },
+        { f: 659.25, t: 0.98, d: 0.18 },
+        { f: 783.99, t: 1.18, d: 0.55 }
+      ];
+      fanfare.forEach(n => playTone(n.f, 'triangle', n.d, n.t, 0.22));
+    }
+
+    /* =========================================================================
+       2. BANK SOAL IPA KELAS 8: PESAWAT SEDERHANA (35 SOAL BERKUALITAS)
+       ========================================================================= */
+    const QUESTION_BANK = [
+      // A. Pengertian, Fungsi, Manfaat & Contoh Pesawat Sederhana
+      {
+        category: "Konsep Pesawat Sederhana",
+        difficulty: "Mudah",
+        question: "Apa yang dimaksud dengan pesawat sederhana dalam ilmu Fisika/IPA?",
+        options: [
+          "Alat bermesin canggih untuk mempermudah pekerjaan manusia",
+          "Alat mekanik sederhana yang dapat mengubah arah atau besar gaya untuk mempermudah pekerjaan",
+          "Kendaraan udara berukuran kecil yang digerakkan oleh baling-baling",
+          "Alat elektronik yang mengurangi besar usaha total yang dibutuhkan"
+        ],
+        correct: 1,
+        explanation: "Pesawat sederhana adalah alat mekanik yang dapat mengubah arah atau besaran gaya sehingga pekerjaan manusia menjadi lebih mudah dilakukan."
+      },
+      {
+        category: "Konsep Pesawat Sederhana",
+        difficulty: "Mudah",
+        question: "Manakah pernyataan yang BENAR mengenai prinsip kerja pesawat sederhana?",
+        options: [
+          "Pesawat sederhana menghilangkan gaya gesek sepenuhnya",
+          "Pesawat sederhana memperkecil besarnya usaha yang diperlukan",
+          "Pesawat sederhana mempermudah usaha tanpa mengurangi besar usaha totalnya",
+          "Pesawat sederhana selalu memperbesar gaya kuasa yang dikeluarkan"
+        ],
+        correct: 2,
+        explanation: "Pesawat sederhana tidak mengurangi besar usaha (W = F × s), melainkan mempermudah pelaksanaannya dengan memperkecil gaya kuasa atau mengubah arah gaya."
+      },
+      {
+        category: "Konsep Pesawat Sederhana",
+        difficulty: "Mudah",
+        question: "Berikut ini yang BUKAN merupakan jenis pesawat sederhana adalah...",
+        options: [
+          "Tuas atau pengungkit",
+          "Katrol",
+          "Bidang miring",
+          "Motor listrik"
+        ],
+        correct: 3,
+        explanation: "Empat jenis utama pesawat sederhana adalah tuas (pengungkit), katrol, bidang miring, dan roda berporos. Motor listrik termasuk mesin kompleks."
+      },
+      {
+        category: "Konsep Pesawat Sederhana",
+        difficulty: "Sedang",
+        question: "Seorang tukang bangunan menggunakan linggis untuk mencabut paku yang menancap kuat di kayu. Manfaat penggunaan linggis tersebut adalah...",
+        options: [
+          "Memperbesar gaya kuasa sehingga paku mudah tercabut",
+          "Mengurangi massa paku agar lebih ringan",
+          "Memperlambat waktu pencabutan paku",
+          "Mengubah energi panas menjadi energi gerak"
+        ],
+        correct: 0,
+        explanation: "Linggis bekerja sebagai pengungkit yang melipatgandakan gaya kuasa tangan kita sehingga mampu mencabut paku dengan gaya lebih kecil."
+      },
+      {
+        category: "Konsep Pesawat Sederhana",
+        difficulty: "Mudah",
+        question: "Alat-alat berikut yang bekerja berdasarkan prinsip pesawat sederhana dalam kehidupan sehari-hari adalah...",
+        options: [
+          "Gunting, gerobak dorong, dan tangga",
+          "Televisi, kulkas, dan kipas angin",
+          "Kompor gas, setrika, dan lampu LED",
+          "Termometer, barometer, dan mikroskop"
+        ],
+        correct: 0,
+        explanation: "Gunting (tuas), gerobak dorong (tuas), dan tangga (bidang miring) adalah contoh nyata penerapan pesawat sederhana."
+      },
+
+      // B. Tuas atau Pengungkit
+      {
+        category: "Tuas / Pengungkit",
+        difficulty: "Mudah",
+        question: "Pada tuas atau pengungkit, titik tempat batang pengungkit bertumpu disebut...",
+        options: [
+          "Titik beban",
+          "Titik kuasa",
+          "Titik tumpu",
+          "Lengan kuasa"
+        ],
+        correct: 2,
+        explanation: "Titik tumpu (fulcrum) adalah titik tetap tempat batang pengungkit bertumpu atau berputar."
+      },
+      {
+        category: "Tuas / Pengungkit",
+        difficulty: "Sedang",
+        question: "Jarak antara titik tumpu dengan titik tempat gaya diberikan disebut...",
+        options: [
+          "Lengan beban (lb)",
+          "Lengan kuasa (lk)",
+          "Titik berat",
+          "Gaya beban (Fb)"
+        ],
+        correct: 1,
+        explanation: "Lengan kuasa (lk) adalah jarak dari titik tumpu ke titik kuasa tempat gaya diberikan."
+      },
+      {
+        category: "Tuas / Pengungkit",
+        difficulty: "Mudah",
+        question: "Ciri utama dari tuas golongan I adalah...",
+        options: [
+          "Titik beban berada di antara titik tumpu dan titik kuasa",
+          "Titik kuasa berada di antara titik tumpu dan titik beban",
+          "Titik tumpu berada di antara titik beban dan titik kuasa",
+          "Tidak memiliki titik tumpu"
+        ],
+        correct: 2,
+        explanation: "Pada tuas golongan I, posisi titik tumpu terletak di tengah-tengah antara titik beban dan titik kuasa (contoh: gunting, jungkat-jungkit)."
+      },
+      {
+        category: "Tuas / Pengungkit",
+        difficulty: "Sedang",
+        question: "Manakah kelompok alat berikut yang seluruhnya termasuk tuas golongan I?",
+        options: [
+          "Gunting, tang, dan jungkat-jungkit",
+          "Gerobak dorong satu roda, pembuka botol, dan pemecah kemiri",
+          "Pinset, sekop, dan penjepit roti",
+          "Stapler, pinset, dan alat pancing"
+        ],
+        correct: 0,
+        explanation: "Gunting, tang, dan jungkat-jungkit memiliki titik tumpu di tengah antara beban dan kuasa sehingga termasuk tuas golongan I."
+      },
+      {
+        category: "Tuas / Pengungkit",
+        difficulty: "Sedang",
+        question: "Gerobak dorong beroda satu dan pemecah kemiri termasuk tuas golongan II karena...",
+        options: [
+          "Titik tumpu berada di antara beban dan kuasa",
+          "Titik beban berada di antara titik tumpu dan titik kuasa",
+          "Titik kuasa berada di antara titik tumpu dan titik beban",
+          "Lengan bebannya selalu lebih panjang daripada lengan kuasa"
+        ],
+        correct: 1,
+        explanation: "Tuas golongan II memiliki titik beban di bagian tengah (di antara titik tumpu dan titik kuasa), sehingga selalu menghasilkan keuntungan mekanis > 1."
+      },
+      {
+        category: "Tuas / Pengungkit",
+        difficulty: "Sedang",
+        question: "Alat berikut yang merupakan contoh penerapan tuas golongan III adalah...",
+        options: [
+          "Pemotong kertas",
+          "Pinset dan penjepit kue",
+          "Pembuka tutup botol",
+          "Linggis pencabut paku"
+        ],
+        correct: 1,
+        explanation: "Pada pinset dan penjepit kue, titik kuasa (jari kita) menekan di bagian tengah, di antara titik tumpu (pangkal) dan beban (ujung penjepit)."
+      },
+      {
+        category: "Tuas / Pengungkit",
+        difficulty: "Menantang",
+        question: "Ketika kamu mengangkat barbel dengan menekuk lengan bawah, siku berfungsi sebagai titik tumpu, otot bisep sebagai titik kuasa, dan barbel sebagai beban. Lengan manusia tersebut bekerja seperti...",
+        options: [
+          "Tuas golongan I",
+          "Tuas golongan II",
+          "Tuas golongan III",
+          "Katrol tetap"
+        ],
+        correct: 2,
+        explanation: "Otot bisep melekat di antara siku (titik tumpu) dan telapak tangan/barbel (beban), sehingga sistem gerak lengan termasuk tuas golongan III."
+      },
+      {
+        category: "Tuas / Pengungkit",
+        difficulty: "Sedang",
+        question: "Agar gaya yang diperlukan untuk mengungkit batu besar menjadi sekecil mungkin, maka posisi titik tumpu sebaiknya diletakkan...",
+        options: [
+          "Mendekati batu (beban)",
+          "Mendekati tangan (kuasa)",
+          "Tepat di tengah-tengah batang pengungkit",
+          "Di ujung paling belakang pengungkit"
+        ],
+        correct: 0,
+        explanation: "Meletakkan titik tumpu dekat dengan beban membuat lengan kuasa (lk) jauh lebih panjang daripada lengan beban (lb), sehingga gaya kuasa menjadi kecil."
+      },
+
+      // C. Katrol
+      {
+        category: "Katrol",
+        difficulty: "Mudah",
+        question: "Katrol yang posisinya tidak berpindah tempat saat digunakan, seperti pada tiang bendera, disebut...",
+        options: [
+          "Katrol bebas",
+          "Katrol tetap",
+          "Katrol majemuk",
+          "Roda gila"
+        ],
+        correct: 1,
+        explanation: "Katrol tetap memiliki poros yang terpasang tetap pada suatu tempat (misalnya puncak tiang bendera atau sumur timba)."
+      },
+      {
+        category: "Katrol",
+        difficulty: "Sedang",
+        question: "Apa keuntungan utama menggunakan sebuah katrol tetap untuk menimba air dari sumur?",
+        options: [
+          "Memperkecil gaya tarik menjadi seperempat beban",
+          "Mengubah arah gaya tarik ke bawah sehingga lebih mudah dilakukan",
+          "Mengurangi massa ember berisi air",
+          "Menghilangkan gaya gravitasi bumi"
+        ],
+        correct: 1,
+        explanation: "Katrol tetap memiliki keuntungan mekanis = 1 (F = W), namun sangat membantu karena mengubah arah gaya tarik ke bawah dibantu berat tubuh."
+      },
+      {
+        category: "Katrol",
+        difficulty: "Sedang",
+        question: "Katrol bergerak (katrol bebas) memiliki keuntungan mekanis sebesar 2. Artinya, untuk mengangkat beban 200 N diperlukan gaya kuasa sebesar...",
+        options: [
+          "400 N",
+          "200 N",
+          "100 N",
+          "50 N"
+        ],
+        correct: 2,
+        explanation: "Karena KM katrol bergerak = 2, maka gaya kuasa F = W / KM = 200 N / 2 = 100 N."
+      },
+      {
+        category: "Katrol",
+        difficulty: "Sedang",
+        question: "Gabungan antara katrol tetap dan katrol bergerak yang sering digunakan pada alat pengangkat peti kemas di pelabuhan disebut...",
+        options: [
+          "Katrol tunggal",
+          "Katrol majemuk (takal)",
+          "Tuas majemuk",
+          "Roda gigi"
+        ],
+        correct: 1,
+        explanation: "Katrol majemuk (takal) menggabungkan katrol tetap dan katrol bergerak untuk mengangkat beban yang sangat berat dengan gaya jauh lebih kecil."
+      },
+      {
+        category: "Katrol",
+        difficulty: "Menantang",
+        question: "Pada sistem katrol majemuk, besar keuntungan mekanisnya dapat ditentukan dengan menghitung...",
+        options: [
+          "Diameter roda katrol terbesar",
+          "Jumlah tali yang menopang beban bergerak",
+          "Panjang total tali yang ditarik",
+          "Massa jenis bahan pembuat katrol"
+        ],
+        correct: 1,
+        explanation: "Keuntungan mekanis katrol majemuk sama dengan jumlah segmen tali yang menopang katrol bergerak/beban."
+      },
+      {
+        category: "Katrol",
+        difficulty: "Mudah",
+        question: "Prinsip kerja katrol sebenarnya mirip dengan prinsip kerja...",
+        options: [
+          "Bidang miring",
+          "Pengungkit (tuas)",
+          "Baji",
+          "Sekrup"
+        ],
+        correct: 1,
+        explanation: "Katrol bekerja berdasarkan prinsip tuas karena memiliki titik tumpu (poros), titik beban, dan titik kuasa."
+      },
+
+      // D. Bidang Miring
+      {
+        category: "Bidang Miring",
+        difficulty: "Mudah",
+        question: "Bidang miring adalah permukaan datar yang salah satu ujungnya lebih tinggi daripada ujung lainnya. Fungsi utama bidang miring adalah...",
+        options: [
+          "Memindahkan benda ke tempat tinggi dengan gaya lebih kecil",
+          "Memperpendek jarak tempuh benda",
+          "Memperbesar gaya dorong yang diperlukan",
+          "Mengubah benda padat menjadi cair"
+        ],
+        correct: 0,
+        explanation: "Bidang miring memperpanjang lintasan perpindahan sehingga gaya dorong/tarik yang dibutuhkan untuk menaikkan benda menjadi lebih kecil."
+      },
+      {
+        category: "Bidang Miring",
+        difficulty: "Sedang",
+        question: "Jalan di daerah pegunungan dibuat berkelok-kelok menyerupai huruf S. Tujuan pembuatan jalan berkelok tersebut adalah...",
+        options: [
+          "Agar pemandangan terlihat lebih indah",
+          "Memperpanjang lintasan sehingga sudut kemiringan lebih landai dan gaya dorong kendaraan lebih kecil",
+          "Memperpendek jarak tempuh menuju puncak gunung",
+          "Menghemat bahan aspal jalan"
+        ],
+        correct: 1,
+        explanation: "Jalan berkelok menerapkan prinsip bidang miring: semakin landai/panjang lintasannya, semakin kecil gaya mesin yang diperlukan untuk menanjak."
+      },
+      {
+        category: "Bidang Miring",
+        difficulty: "Sedang",
+        question: "Jika panjang papan bidang miring dibuat semakin panjang untuk ketinggian bak truk yang sama, maka gaya yang diperlukan untuk mendorong drum ke atas truk akan...",
+        options: [
+          "Semakin besar",
+          "Semakin kecil",
+          "Tetap sama",
+          "Menjadi nol"
+        ],
+        correct: 1,
+        explanation: "Hubungan bidang miring: F = (W × h) / s. Jika panjang papan (s) semakin besar, maka gaya dorong (F) semakin kecil."
+      },
+      {
+        category: "Bidang Miring",
+        difficulty: "Mudah",
+        question: "Alat-alat berikut ini yang bekerja berdasarkan prinsip bidang miring adalah...",
+        options: [
+          "Pisau, kapak, dan sekrup",
+          "Gunting, tang, dan jungkat-jungkit",
+          "Setir mobil, roda sepeda, dan kenop pintu",
+          "Katrol timba dan tiang bendera"
+        ],
+        correct: 0,
+        explanation: "Pisau dan kapak (baji) serta sekrup (bidang miring yang melilit silinder) merupakan pengembangan dari prinsip bidang miring."
+      },
+      {
+        category: "Bidang Miring",
+        difficulty: "Sedang",
+        question: "Mengapa pisau yang diasah hingga tajam lebih mudah digunakan untuk memotong sayuran?",
+        options: [
+          "Karena massa pisau bertambah berat",
+          "Karena luas permukaan mata pisau menjadi sangat kecil sehingga tekanan potong menjadi besar",
+          "Karena pisau berubah menjadi tuas golongan II",
+          "Karena gaya gravitasi pada sayuran meningkat"
+        ],
+        correct: 1,
+        explanation: "Mata pisau berbentuk baji (bidang miring ganda). Semakin tajam/tipis ujungnya, semakin kecil gaya yang diperlukan untuk membelah benda."
+      },
+      {
+        category: "Bidang Miring",
+        difficulty: "Menantang",
+        question: "Dua papan miring A dan B digunakan untuk menaikkan kotak ke ketinggian 1,5 meter. Papan A panjangnya 3 meter dan Papan B panjangnya 4,5 meter. Papan manakah yang membutuhkan gaya dorong lebih kecil?",
+        options: [
+          "Papan A, karena lebih pendek",
+          "Papan B, karena lebih landai dan keuntungan mekanisnya lebih besar",
+          "Keduanya membutuhkan gaya yang sama besar",
+          "Papan A, karena gesekannya lebih besar"
+        ],
+        correct: 1,
+        explanation: "KM Papan B = 4,5 / 1,5 = 3, sedangkan KM Papan A = 3 / 1,5 = 2. Semakin besar KM, semakin kecil gaya dorong yang dibutuhkan."
+      },
+
+      // E. Roda Berporos
+      {
+        category: "Roda Berporos",
+        difficulty: "Mudah",
+        question: "Pesawat sederhana yang terdiri atas sebuah roda yang dihubungkan dengan sebuah poros yang dapat berputar bersama-sama disebut...",
+        options: [
+          "Katrol bebas",
+          "Roda berporos",
+          "Bidang miring",
+          "Pengungkit ganda"
+        ],
+        correct: 1,
+        explanation: "Roda berporos adalah pesawat sederhana yang memiliki roda besar dan poros kecil yang berputar secara bersamaan."
+      },
+      {
+        category: "Roda Berporos",
+        difficulty: "Sedang",
+        question: "Manakah pasangan benda berikut yang bekerja berdasarkan prinsip roda berporos?",
+        options: [
+          "Setir mobil dan kenop pintu",
+          "Gunting dan pembuka botol",
+          "Tangga dan sekrup",
+          "Pinset dan penjepit kertas"
+        ],
+        correct: 0,
+        explanation: "Setir mobil dan kenop pintu memiliki roda/pegangan berjari-jari besar yang memutar poros kecil di tengahnya."
+      },
+      {
+        category: "Roda Berporos",
+        difficulty: "Sedang",
+        question: "Pada sepeda, gir (roda gigi) yang dihubungkan dengan rantai berfungsi menerapkan prinsip roda berporos untuk...",
+        options: [
+          "Menghentikan laju sepeda secara mendadak",
+          "Memperbesar kecepatan atau memperingan kayuhan pedal",
+          "Mengubah sepeda menjadi tuas golongan I",
+          "Mengurangi berat total sepeda"
+        ],
+        correct: 1,
+        explanation: "Sistem gir dan roda sepeda memanfaatkan perbandingan jari-jari roda dan poros untuk mengatur gaya kayuh dan kecepatan."
+      },
+      {
+        category: "Roda Berporos",
+        difficulty: "Menantang",
+        question: "Sebuah obeng digunakan untuk memutar sekrup. Gagang obeng yang dibuat lebih besar dibandingkan batang besinya bertujuan untuk...",
+        options: [
+          "Memperbesar jari-jari roda sehingga keuntungan mekanis lebih besar dan sekrup mudah diputar",
+          "Memperkecil keuntungan mekanis obeng",
+          "Mengurangi panjang batang obeng",
+          "Membuat obeng lebih mudah diselipkan"
+        ],
+        correct: 0,
+        explanation: "Obeng bekerja sebagai roda berporos. Keuntungan mekanis KM = R_gagang / r_poros, sehingga gagang yang lebih lebar memperbesar gaya putar."
+      },
+
+      // F. Keuntungan Mekanis & Perhitungan Sederhana
+      {
+        category: "Keuntungan Mekanis",
+        difficulty: "Mudah",
+        question: "Apa yang dimaksud dengan Keuntungan Mekanis (KM) pada pesawat sederhana?",
+        options: [
+          "Perbandingan antara berat beban (W) dengan gaya kuasa (F)",
+          "Hasil penjumlahan antara gaya beban dan gaya kuasa",
+          "Selisih antara panjang papan dan tinggi bidang miring",
+          "Kecepatan gerak benda saat ditarik"
+        ],
+        correct: 0,
+        explanation: "Keuntungan Mekanis (KM) adalah bilangan yang menunjukkan berapa kali pesawat sederhana menggandakan gaya: KM = W / F."
+      },
+      {
+        category: "Keuntungan Mekanis",
+        difficulty: "Sedang",
+        question: "Sebuah tuas memiliki lengan kuasa 150 cm dan lengan beban 30 cm. Berapakah keuntungan mekanis tuas tersebut?",
+        options: [
+          "2",
+          "3",
+          "5",
+          "45"
+        ],
+        correct: 2,
+        explanation: "KM tuas = lk / lb = 150 cm / 30 cm = 5."
+      },
+      {
+        category: "Keuntungan Mekanis",
+        difficulty: "Menantang",
+        question: "Sebuah batu seberat 600 N akan diangkat menggunakan pengungkit. Jika panjang lengan beban 0,5 m dan lengan kuasa 2 m, berapa gaya kuasa minimal yang diperlukan?",
+        options: [
+          "150 N",
+          "300 N",
+          "1.200 N",
+          "2.400 N"
+        ],
+        correct: 0,
+        explanation: "Gunakan rumus W × lb = F × lk → 600 × 0,5 = F × 2 → 300 = 2F → F = 150 N."
+      },
+      {
+        category: "Keuntungan Mekanis",
+        difficulty: "Sedang",
+        question: "Sebuah peti seberat 400 N dinaikkan ke atas truk menggunakan papan miring sepanjang 4 meter. Jika tinggi bak truk 1 meter, gaya dorong minimal yang dibutuhkan adalah...",
+        options: [
+          "50 N",
+          "100 N",
+          "200 N",
+          "400 N"
+        ],
+        correct: 1,
+        explanation: "KM bidang miring = s / h = 4 / 1 = 4. Gaya kuasa F = W / KM = 400 N / 4 = 100 N."
+      },
+      {
+        category: "Keuntungan Mekanis",
+        difficulty: "Menantang",
+        question: "Sebuah sistem katrol majemuk memiliki 4 tali yang menopang beban. Jika beban yang diangkat memiliki berat 800 N, berapakah gaya kuasa yang harus diberikan?",
+        options: [
+          "100 N",
+          "200 N",
+          "400 N",
+          "3.200 N"
+        ],
+        correct: 1,
+        explanation: "Pada katrol majemuk dengan 4 tali penopang, KM = 4. Maka F = W / KM = 800 N / 4 = 200 N."
+      },
+      {
+        category: "Keuntungan Mekanis",
+        difficulty: "Menantang",
+        question: "Sebuah roda berporos memiliki jari-jari roda 25 cm dan jari-jari poros 5 cm. Berapakah keuntungan mekanis roda berporos tersebut?",
+        options: [
+          "0,2",
+          "5",
+          "20",
+          "125"
+        ],
+        correct: 1,
+        explanation: "Keuntungan mekanis roda berporos = Jari-jari roda / Jari-jari poros = 25 cm / 5 cm = 5."
+      }
+    ];
+
+    /* =========================================================================
+       3. KONFIGURASI PAPAN ULAR TANGGA 5x5 (25 KOTAK)
+       ========================================================================= */
+    const LADDERS = {
+      3: 9,
+      6: 14,
+      11: 19,
+      16: 23
+    };
+
+    const SNAKES = {
+      15: 7,
+      18: 10,
+      20: 12,
+      24: 17
+    };
+
+    // Ikon dekoratif pesawat sederhana di beberapa kotak agar visual papan kaya & edukatif
+    const TILE_DECORATIONS = {
+      1: "🚩",
+      2: "✂️",
+      4: "⚖️",
+      5: "⚙️",
+      8: "📐",
+      13: "🚲",
+      21: "🔧",
+      22: "🪜",
+      25: "👑"
+    };
+
+    // Palet warna kotak papan yang ceria dan kontras
+    const TILE_COLORS = [
+      "bg-sky-100 text-sky-900",
+      "bg-yellow-100 text-amber-900",
+      "bg-emerald-100 text-emerald-900",
+      "bg-rose-100 text-rose-900",
+      "bg-violet-100 text-violet-900"
+    ];
+
+    /* =========================================================================
+       4. STATE PERMAINAN
+       ========================================================================= */
+    const LEADERBOARD_STORAGE_KEY = "raja_pesawat_sederhana_leaderboard_v1";
+
+    let gameState = {
+      className: "",
+      schoolName: "",
+      currentTurn: 1, // 1 = Pemain 1 (Merah), 2 = Pemain 2 (Biru)
+      isBusy: false,
+      totalDiceRolls: 0,
+      questionCount: 0,
+      usedQuestionIndices: [],
+      previousScreen: "start",
+      players: {
+        1: {
+          name: "Pemain 1",
+          color: "Merah",
+          position: 1,
+          score: 0,
+          rolls: 0,
+          correct: 0,
+          wrong: 0
+        },
+        2: {
+          name: "Pemain 2",
+          color: "Biru",
+          position: 1,
+          score: 0,
+          rolls: 0,
+          correct: 0,
+          wrong: 0
+        }
+      },
+      currentQuiz: null,
+      quizAnswered: false
+    };
+
+    /* =========================================================================
+       5. UTILITAS KOORDINAT GRID 5x5 ZIG-ZAG
+       ========================================================================= */
+    /**
+     * Mengonversi nomor kotak (1..25) menjadi posisi baris & kolom visual (0..4)
+     * Baris 4 (bawah): 1 -> 2 -> 3 -> 4 -> 5
+     * Baris 3: 10 <- 9 <- 8 <- 7 <- 6
+     * Baris 2: 11 -> 12 -> 13 -> 14 -> 15
+     * Baris 1: 20 <- 19 <- 18 <- 17 <- 16
+     * Baris 0 (atas): 21 -> 22 -> 23 -> 24 -> 25
+     */
+    function getTileGridCoords(tileNumber) {
+      const idx = tileNumber - 1;
+      const rowFromBottom = Math.floor(idx / 5);
+      const gridRow = 4 - rowFromBottom;
+      const colInRow = idx % 5;
+      const gridCol = (rowFromBottom % 2 === 0) ? colInRow : (4 - colInRow);
+      return { row: gridRow, col: gridCol };
+    }
+
+    // Mendapatkan persentase pusat kotak untuk posisi pion (0..100%)
+    function getTileCenterPercent(tileNumber) {
+      const { row, col } = getTileGridCoords(tileNumber);
+      return {
+        x: (col + 0.5) * 20,
+        y: (row + 0.5) * 20
+      };
+    }
+
+    // Mendapatkan koordinat SVG (viewBox 500x500) untuk menggambar ular dan tangga
+    function getTileSvgCoords(tileNumber) {
+      const { row, col } = getTileGridCoords(tileNumber);
+      return {
+        x: (col + 0.5) * 100,
+        y: (row + 0.5) * 100
+      };
+    }
+
+    /* =========================================================================
+       6. RENDER PAPAN 5x5 & ILUSTRASI SVG TANGGA + ULAR
+       ========================================================================= */
+    function renderBoard() {
+      const boardGrid = document.getElementById("boardGrid");
+      boardGrid.innerHTML = "";
+
+      // Buat matriks 5x5 untuk menempatkan nomor kotak secara zig-zag
+      const matrix = Array.from({ length: 5 }, () => Array(5).fill(0));
+      for (let num = 1; num <= 25; num++) {
+        const { row, col } = getTileGridCoords(num);
+        matrix[row][col] = num;
+      }
+
+      for (let r = 0; r < 5; r++) {
+        for (let c = 0; c < 5; c++) {
+          const num = matrix[r][c];
+          const colorClass = TILE_COLORS[(r + c) % TILE_COLORS.length];
+          const isLadderStart = LADDERS.hasOwnProperty(num);
+          const isSnakeStart = SNAKES.hasOwnProperty(num);
+          const isFinish = num === 25;
+          const isStart = num === 1;
+
+          const tile = document.createElement("div");
+          tile.id = `tile-${num}`;
+          tile.className = `relative border border-slate-900/30 p-1 sm:p-1.5 flex flex-col justify-between ${colorClass} ${isFinish ? 'bg-gradient-to-br from-yellow-300 via-amber-200 to-yellow-400' : ''}`;
+
+          // Nomor Kotak & Ikon Bintang Spesial
+          let topBadge = `<span class="font-extrabold text-xs sm:text-base leading-none">${num}</span>`;
+          if (isLadderStart) {
+            topBadge += `<span class="text-[10px] sm:text-xs bg-green-600 text-white px-1 rounded font-bold">⭐↑${LADDERS[num]}</span>`;
+          } else if (isSnakeStart) {
+            topBadge += `<span class="text-[10px] sm:text-xs bg-red-600 text-white px-1 rounded font-bold">⚠️↓${SNAKES[num]}</span>`;
+          } else if (num % 2 === 0 && !isFinish) {
+            topBadge += `<span class="text-[10px] sm:text-xs opacity-80">⭐</span>`;
+          }
+
+          const decor = TILE_DECORATIONS[num] || "";
+          const bottomLabel = isStart
+            ? `<span class="text-[9px] sm:text-[11px] font-extrabold bg-slate-900 text-white px-1.5 py-0.5 rounded self-start">START</span>`
+            : isFinish
+            ? `<span class="text-[9px] sm:text-[11px] font-extrabold bg-red-600 text-white px-1.5 py-0.5 rounded self-end">FINISH</span>`
+            : `<span class="text-sm sm:text-lg opacity-25 self-end select-none">${decor}</span>`;
+
+          tile.innerHTML = `
+            <div class="flex items-start justify-between gap-0.5 z-10">${topBadge}</div>
+            ${bottomLabel}
+          `;
+          boardGrid.appendChild(tile);
+        }
+      }
+
+      renderSnakesAndLaddersSvg();
+      updatePawnPositions(false);
+    }
+
+    function renderSnakesAndLaddersSvg() {
+      const svg = document.getElementById("boardOverlaySvg");
+      let svgContent = `
+        <defs>
+          <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="1" dy="3" stdDeviation="2.5" flood-color="#0F172A" flood-opacity="0.35"/>
+          </filter>
+        </defs>
+      `;
+
+      // 1. Gambar Semua Tangga (Ladders)
+      Object.entries(LADDERS).forEach(([startStr, endNum]) => {
+        const startNum = parseInt(startStr, 10);
+        const p1 = getTileSvgCoords(startNum);
+        const p2 = getTileSvgCoords(endNum);
+
+        const dx = p2.x - p1.x;
+        const dy = p2.y - p1.y;
+        const length = Math.hypot(dx, dy);
+        const ux = dx / length;
+        const uy = dy / length;
+        // Vektor tegak lurus untuk lebar tangga
+        const px = -uy * 11;
+        const py = ux * 11;
+
+        const r1Start = { x: p1.x + px, y: p1.y + py };
+        const r1End = { x: p2.x + px, y: p2.y + py };
+        const r2Start = { x: p1.x - px, y: p1.y - py };
+        const r2End = { x: p2.x - px, y: p2.y - py };
+
+        let rungsHtml = "";
+        const steps = Math.max(4, Math.floor(length / 24));
+        for (let i = 1; i < steps; i++) {
+          const t = i / steps;
+          const sx = r1Start.x + (r1End.x - r1Start.x) * t;
+          const sy = r1Start.y + (r1End.y - r1Start.y) * t;
+          const ex = r2Start.x + (r2End.x - r2Start.x) * t;
+          const ey = r2Start.y + (r2End.y - r2Start.y) * t;
+          rungsHtml += `
+            <line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="#1E293B" stroke-width="5.5" stroke-linecap="round"/>
+            <line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="#FACC15" stroke-width="3" stroke-linecap="round"/>
+          `;
+        }
+
+        svgContent += `
+          <g id="ladder-${startNum}" filter="url(#dropShadow)" opacity="0.92">
+            ${rungsHtml}
+            <line x1="${r1Start.x}" y1="${r1Start.y}" x2="${r1End.x}" y2="${r1End.y}" stroke="#1E293B" stroke-width="6.5" stroke-linecap="round"/>
+            <line x1="${r1Start.x}" y1="${r1Start.y}" x2="${r1End.x}" y2="${r1End.y}" stroke="#16A34A" stroke-width="3.5" stroke-linecap="round"/>
+            <line x1="${r2Start.x}" y1="${r2Start.y}" x2="${r2End.x}" y2="${r2End.y}" stroke="#1E293B" stroke-width="6.5" stroke-linecap="round"/>
+            <line x1="${r2Start.x}" y1="${r2Start.y}" x2="${r2End.x}" y2="${r2End.y}" stroke="#16A34A" stroke-width="3.5" stroke-linecap="round"/>
+          </g>
+        `;
+      });
+
+      // 2. Gambar Semua Ular (Snakes) dengan Kurva Sinusoidal & Kepala Kartun
+      const snakeColors = [
+        { body: "#EF4444", stripe: "#FCA5A5" },
+        { body: "#9333EA", stripe: "#D8B4FE" },
+        { body: "#EA580C", stripe: "#FDBA74" },
+        { body: "#DC2626", stripe: "#FDE047" }
+      ];
+
+      Object.entries(SNAKES).forEach(([headStr, tailNum], idx) => {
+        const headNum = parseInt(headStr, 10);
+        const h = getTileSvgCoords(headNum);
+        const t = getTileSvgCoords(tailNum);
+        const palette = snakeColors[idx % snakeColors.length];
+
+        const dx = t.x - h.x;
+        const dy = t.y - h.y;
+        const len = Math.hypot(dx, dy);
+        const nx = -dy / len;
+        const ny = dx / len;
+
+        // Titik kontrol kurva melengkung seperti ular
+        const c1x = h.x + dx * 0.32 + nx * 34;
+        const c1y = h.y + dy * 0.32 + ny * 34;
+        const c2x = h.x + dx * 0.68 - nx * 34;
+        const c2y = h.y + dy * 0.68 - ny * 34;
+
+        const pathD = `M ${h.x} ${h.y} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${t.x} ${t.y}`;
+
+        svgContent += `
+          <g id="snake-${headNum}" filter="url(#dropShadow)" opacity="0.93">
+            <!-- Outline Tubuh Ular -->
+            <path d="${pathD}" fill="none" stroke="#1E293B" stroke-width="14" stroke-linecap="round"/>
+            <!-- Warna Utama Tubuh Ular -->
+            <path d="${pathD}" fill="none" stroke="${palette.body}" stroke-width="9.5" stroke-linecap="round"/>
+            <!-- Motif Garis Tubuh Ular -->
+            <path d="${pathD}" fill="none" stroke="${palette.stripe}" stroke-width="4" stroke-dasharray="7 11" stroke-linecap="round"/>
+            
+            <!-- Lidah Bercabang Ular di Kepala -->
+            <path d="M ${h.x} ${h.y - 10} L ${h.x - 4} ${h.y - 20} M ${h.x} ${h.y - 10} L ${h.x + 4} ${h.y - 20}"
+              stroke="#EF4444" stroke-width="2" stroke-linecap="round"/>
+            
+            <!-- Kepala Ular Kartun -->
+            <circle cx="${h.x}" cy="${h.y}" r="12" fill="${palette.body}" stroke="#1E293B" stroke-width="2.5"/>
+            <circle cx="${h.x - 4}" cy="${h.y - 3}" r="3" fill="#FFFFFF"/>
+            <circle cx="${h.x + 4}" cy="${h.y - 3}" r="3" fill="#FFFFFF"/>
+            <circle cx="${h.x - 4}" cy="${h.y - 3}" r="1.4" fill="#0F172A"/>
+            <circle cx="${h.x + 4}" cy="${h.y - 3}" r="1.4" fill="#0F172A"/>
+          </g>
+        `;
+      });
+
+      svg.innerHTML = svgContent;
+    }
+
+    /* =========================================================================
+       7. PEMBARUAN POSISI PION & UI PEMAIN
+       ========================================================================= */
+    function updatePawnPositions(isSliding = false) {
+      const p1Pos = gameState.players[1].position;
+      const p2Pos = gameState.players[2].position;
+
+      const c1 = getTileCenterPercent(p1Pos);
+      const c2 = getTileCenterPercent(p2Pos);
+
+      const pawn1El = document.getElementById("pawn1");
+      const pawn2El = document.getElementById("pawn2");
+
+      if (isSliding) {
+        pawn1El.classList.add("sliding");
+        pawn2El.classList.add("sliding");
+      } else {
+        pawn1El.classList.remove("sliding");
+        pawn2El.classList.remove("sliding");
+      }
+
+      // Jika kedua pion berada di kotak yang sama, geser sedikit agar tidak saling menutupi
+      const sameTile = p1Pos === p2Pos;
+      const offset1 = sameTile ? -3.2 : 0;
+      const offset2 = sameTile ? 3.2 : 0;
+
+      pawn1El.style.left = `${c1.x + offset1}%`;
+      pawn1El.style.top = `${c1.y}%`;
+
+      pawn2El.style.left = `${c2.x + offset2}%`;
+      pawn2El.style.top = `${c2.y}%`;
+    }
+
+    function updateGameHUD() {
+      const p1 = gameState.players[1];
+      const p2 = gameState.players[2];
+
+      document.getElementById("displayP1Name").textContent = p1.name;
+      document.getElementById("displayP1Pos").textContent = `Kotak ${p1.position}`;
+      document.getElementById("displayP1Score").textContent = `${p1.score} Poin`;
+      document.getElementById("displayP1Rolls").textContent = p1.rolls;
+      document.getElementById("displayP1Correct").textContent = p1.correct;
+
+      document.getElementById("displayP2Name").textContent = p2.name;
+      document.getElementById("displayP2Pos").textContent = `Kotak ${p2.position}`;
+      document.getElementById("displayP2Score").textContent = `${p2.score} Poin`;
+      document.getElementById("displayP2Rolls").textContent = p2.rolls;
+      document.getElementById("displayP2Correct").textContent = p2.correct;
+
+      document.getElementById("totalRollsBadge").textContent = `Total Lemparan: ${gameState.totalDiceRolls}`;
+
+      // Indikator Giliran Aktif
+      const card1 = document.getElementById("cardPlayer1");
+      const card2 = document.getElementById("cardPlayer2");
+      const badge1 = document.getElementById("turnBadge1");
+      const badge2 = document.getElementById("turnBadge2");
+      const banner = document.getElementById("turnIndicatorBanner");
+      const bannerText = document.getElementById("turnIndicatorText");
+
+      if (gameState.currentTurn === 1) {
+        card1.classList.add("ring-4", "ring-red-400", "scale-[1.02]");
+        card2.classList.remove("ring-4", "ring-blue-400", "scale-[1.02]");
+        badge1.classList.remove("hidden");
+        badge2.classList.add("hidden");
+        banner.className = "inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500 text-white font-extrabold text-sm sm:text-base border-2 border-slate-900 mb-4 shadow-sm";
+        bannerText.textContent = `Giliran ${p1.name} (Merah)`;
+      } else {
+        card2.classList.add("ring-4", "ring-blue-400", "scale-[1.02]");
+        card1.classList.remove("ring-4", "ring-red-400", "scale-[1.02]");
+        badge2.classList.remove("hidden");
+        badge1.classList.add("hidden");
+        banner.className = "inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-600 text-white font-extrabold text-sm sm:text-base border-2 border-slate-900 mb-4 shadow-sm";
+        bannerText.textContent = `Giliran ${p2.name} (Biru)`;
+      }
+
+      document.getElementById("rollDiceBtn").disabled = gameState.isBusy;
+    }
+
+    function renderDiceFace(value) {
+      const svg = document.getElementById("diceSvg");
+      const dotColor = gameState.currentTurn === 1 ? "#EF4444" : "#2563EB";
+      const pipCoords = {
+        1: [[50, 50]],
+        2: [[28, 28], [72, 72]],
+        3: [[26, 26], [50, 50], [74, 74]],
+        4: [[28, 28], [72, 28], [28, 72], [72, 72]],
+        5: [[26, 26], [74, 26], [50, 50], [26, 74], [74, 74]],
+        6: [[28, 24], [72, 24], [28, 50], [72, 50], [28, 76], [72, 76]]
+      };
+
+      const pips = pipCoords[value] || pipCoords[1];
+      svg.innerHTML = pips
+        .map(([cx, cy]) => `<circle cx="${cx}" cy="${cy}" r="10.5" fill="${dotColor}" stroke="#1E293B" stroke-width="2"/>`)
+        .join("");
+    }
+
+    function showToast(message, bgClass = "bg-slate-900 text-white") {
+      const container = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+      toast.className = `${bgClass} border-3 border-slate-900 px-4 py-3 rounded-2xl font-extrabold text-xs sm:text-sm text-center shadow-lg transition-all duration-300 transform translate-y-0 opacity-100`;
+      toast.textContent = message;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add("opacity-0", "-translate-y-2");
+        setTimeout(() => toast.remove(), 300);
+      }, 2600);
+    }
+
+    /* =========================================================================
+       8. NAVIGASI ANTAR HALAMAN & MEMULAI PERMAINAN
+       ========================================================================= */
+    function showScreen(screenId) {
+      const screens = ["startScreen", "gameScreen", "gameOverScreen", "leaderboardScreen"];
+      screens.forEach(id => {
+        document.getElementById(id).classList.add("hidden");
+      });
+      document.getElementById(screenId).classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function startNewGame() {
+      initAudio();
+      playClickSound();
+
+      const p1Input = document.getElementById("inputPlayer1").value.trim();
+      const p2Input = document.getElementById("inputPlayer2").value.trim();
+      const classInput = document.getElementById("inputClass").value.trim();
+      const schoolInput = document.getElementById("inputSchool").value.trim();
+
+      if (!p1Input || !p2Input || !classInput || !schoolInput) {
+        showToast("⚠️ Harap lengkapi Nama Pemain 1, Pemain 2, Kelas, dan Nama Sekolah!", "bg-yellow-400 text-slate-900");
+        return;
+      }
+
+      resetMatchState(p1Input, p2Input, classInput, schoolInput);
+      showScreen("gameScreen");
+      renderBoard();
+      renderDiceFace(1);
+      updateGameHUD();
+    }
+
+    function resetMatchState(p1Name, p2Name, className, schoolName) {
+      gameState = {
+        className,
+        schoolName,
+        currentTurn: 1,
+        isBusy: false,
+        totalDiceRolls: 0,
+        questionCount: 0,
+        usedQuestionIndices: [],
+        previousScreen: "start",
+        players: {
+          1: {
+            name: p1Name,
+            color: "Merah",
+            position: 1,
+            score: 0,
+            rolls: 0,
+            correct: 0,
+            wrong: 0
+          },
+          2: {
+            name: p2Name,
+            color: "Biru",
+            position: 1,
+            score: 0,
+            rolls: 0,
+            correct: 0,
+            wrong: 0
+          }
+        },
+        currentQuiz: null,
+        quizAnswered: false
+      };
+
+      document.getElementById("headerSchoolInfo").textContent = `Kelas ${className} • ${schoolName}`;
+      document.getElementById("diceResultLabel").textContent = "Tekan tombol untuk melempar dadu!";
+      document.getElementById("gameStatusMessage").textContent =
+        `Permainan dimulai! ${p1Name} (Merah) dan ${p2Name} (Biru) siap bertanding dari Kotak 1.`;
+    }
+
+    function playAgainSamePlayers() {
+      playClickSound();
+      stopConfetti();
+      resetMatchState(
+        gameState.players[1].name,
+        gameState.players[2].name,
+        gameState.className,
+        gameState.schoolName
+      );
+      showScreen("gameScreen");
+      renderBoard();
+      renderDiceFace(1);
+      updateGameHUD();
+    }
+
+    function goToStartScreen() {
+      playClickSound();
+      stopConfetti();
+      showScreen("startScreen");
+    }
+
+    function confirmReturnToMenu() {
+      playClickSound();
+      openCustomConfirm(
+        "Kembali ke Menu Utama?",
+        "Progres permainan saat ini belum selesai dan akan hilang jika kembali ke beranda.",
+        "🏠",
+        () => {
+          closeCustomConfirm();
+          goToStartScreen();
+        }
+      );
+    }
+
+    function toggleInstructionsModal(show) {
+      playClickSound();
+      const modal = document.getElementById("instructionsModal");
+      if (show) modal.classList.remove("hidden");
+      else modal.classList.add("hidden");
+    }
+
+    /* =========================================================================
+       9. MEKANIKA LEMPAR DADU, PERGERAKAN PION, TANGGA & ULAR
+       ========================================================================= */
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    async function handleRollDice() {
+      if (gameState.isBusy) return;
+      initAudio();
+
+      gameState.isBusy = true;
+      updateGameHUD();
+
+      const activePlayerNum = gameState.currentTurn;
+      const player = gameState.players[activePlayerNum];
+      const diceBox = document.getElementById("diceBox");
+      const diceLabel = document.getElementById("diceResultLabel");
+
+      // Animasi & Suara Kocok Dadu
+      diceBox.classList.add("dice-rolling");
+      diceLabel.textContent = "Mengocok dadu...";
+      playDiceSound();
+
+      for (let i = 0; i < 6; i++) {
+        renderDiceFace(Math.floor(Math.random() * 6) + 1);
+        await sleep(75);
+      }
+
+      const diceValue = Math.floor(Math.random() * 6) + 1;
+      diceBox.classList.remove("dice-rolling");
+      renderDiceFace(diceValue);
+
+      // Catat statistik lemparan dadu
+      player.rolls += 1;
+      gameState.totalDiceRolls += 1;
+      diceLabel.textContent = `${player.name} mendapat angka ${diceValue}!`;
+      updateGameHUD();
+
+      const targetPos = player.position + diceValue;
+
+      // Aturan: Jika hasil dadu melebihi kotak 25, pemain tetap di tempat
+      if (targetPos > 25) {
+        const needed = 25 - player.position;
+        const msg = `⚠️ Dadu ${diceValue}! ${player.name} butuh angka ${needed} untuk tepat di Kotak 25. Tetap di Kotak ${player.position}!`;
+        document.getElementById("gameStatusMessage").textContent = msg;
+        showToast(`Angka ${diceValue} melebihi Kotak 25! Tetap di Kotak ${player.position}.`, "bg-yellow-400 text-slate-900");
+        await sleep(1100);
+        switchTurn();
+        return;
+      }
+
+      // Gerakkan pion satu demi satu kotak
+      const pawnEl = document.getElementById(`pawn${activePlayerNum}`);
+      for (let step = 1; step <= diceValue; step++) {
+        player.position += 1;
+        updatePawnPositions(false);
+        updateGameHUD();
+
+        pawnEl.classList.remove("pawn-hopping");
+        void pawnEl.offsetWidth; // trigger reflow
+        pawnEl.classList.add("pawn-hopping");
+
+        playStepSound(step);
+        await sleep(330);
+      }
+
+      document.getElementById("gameStatusMessage").textContent =
+        `${player.name} melangkah ${diceValue} kotak ke Kotak ${player.position}.`;
+
+      // Cek apakah mencapai Kotak 25 (MENANG!)
+      if (player.position === 25) {
+        await sleep(450);
+        handlePlayerVictory(activePlayerNum);
+        return;
+      }
+
+      // Cek apakah mendarat di dasar Tangga
+      if (LADDERS.hasOwnProperty(player.position)) {
+        const startLadder = player.position;
+        const destLadder = LADDERS[startLadder];
+        const ladderSvgEl = document.getElementById(`ladder-${startLadder}`);
+
+        if (ladderSvgEl) ladderSvgEl.classList.add("special-active");
+        playLadderSound();
+        showToast(`🪜 Hebat! Naik Tangga Kemajuan: Kotak ${startLadder} → ${destLadder}!`, "bg-green-500 text-white");
+        document.getElementById("gameStatusMessage").textContent =
+          `🪜 ${player.name} menemukan Tangga Kemajuan! Naik dari Kotak ${startLadder} ke Kotak ${destLadder}.`;
+
+        await sleep(450);
+        player.position = destLadder;
+        updatePawnPositions(true);
+        updateGameHUD();
+        await sleep(900);
+        if (ladderSvgEl) ladderSvgEl.classList.remove("special-active");
+
+        if (player.position === 25) {
+          handlePlayerVictory(activePlayerNum);
+          return;
+        }
+      }
+      // Cek apakah mendarat di kepala Ular
+      else if (SNAKES.hasOwnProperty(player.position)) {
+        const headSnake = player.position;
+        const tailSnake = SNAKES[headSnake];
+        const snakeSvgEl = document.getElementById(`snake-${headSnake}`);
+
+        if (snakeSvgEl) snakeSvgEl.classList.add("special-active");
+        playSnakeSound();
+        showToast(`🐍 Tantangan Ular! Turun dari Kotak ${headSnake} → ${tailSnake}!`, "bg-red-500 text-white");
+        document.getElementById("gameStatusMessage").textContent =
+          `🐍 ${player.name} bertemu Tantangan Ular! Turun dari Kotak ${headSnake} ke Kotak ${tailSnake}.`;
+
+        await sleep(450);
+        player.position = tailSnake;
+        updatePawnPositions(true);
+        updateGameHUD();
+        await sleep(900);
+        if (snakeSvgEl) snakeSvgEl.classList.remove("special-active");
+      }
+
+      // Tampilkan Kuis Interaktif IPA setelah pion selesai bergerak
+      await sleep(300);
+      openQuizModal();
+    }
+
+    function switchTurn() {
+      gameState.currentTurn = gameState.currentTurn === 1 ? 2 : 1;
+      gameState.isBusy = false;
+      updateGameHUD();
+      const nextPlayer = gameState.players[gameState.currentTurn];
+      document.getElementById("diceResultLabel").textContent = `Giliran ${nextPlayer.name} melempar dadu!`;
+    }
+
+    /* =========================================================================
+       10. SISTEM KUIS INTERAKTIF (MODAL)
+       ========================================================================= */
+    function getNextQuestion() {
+      if (gameState.usedQuestionIndices.length >= QUESTION_BANK.length) {
+        gameState.usedQuestionIndices = [];
+      }
+
+      const available = [];
+      for (let i = 0; i < QUESTION_BANK.length; i++) {
+        if (!gameState.usedQuestionIndices.includes(i)) {
+          available.push(i);
+        }
+      }
+
+      const chosenIdx = available[Math.floor(Math.random() * available.length)];
+      gameState.usedQuestionIndices.push(chosenIdx);
+      gameState.questionCount += 1;
+      return QUESTION_BANK[chosenIdx];
+    }
+
+    function openQuizModal() {
+      const q = getNextQuestion();
+      gameState.currentQuiz = q;
+      gameState.quizAnswered = false;
+
+      const player = gameState.players[gameState.currentTurn];
+      const modal = document.getElementById("quizModal");
+      const feedbackSection = document.getElementById("quizFeedbackSection");
+
+      // Reset tampilan modal
+      feedbackSection.classList.add("hidden");
+      document.getElementById("quizNumberBadge").textContent = `SOAL #${gameState.questionCount}`;
+      document.getElementById("quizCategoryBadge").textContent = q.category;
+
+      const diffBadge = document.getElementById("quizDifficultyBadge");
+      diffBadge.textContent = q.difficulty;
+      diffBadge.className = q.difficulty === "Mudah"
+        ? "bg-green-100 text-green-800 font-bold text-xs px-2.5 py-1 rounded-lg border border-green-400"
+        : q.difficulty === "Sedang"
+        ? "bg-yellow-100 text-amber-800 font-bold text-xs px-2.5 py-1 rounded-lg border border-amber-400"
+        : "bg-purple-100 text-purple-800 font-bold text-xs px-2.5 py-1 rounded-lg border border-purple-400";
+
+      const playerBadge = document.getElementById("quizPlayerBadge");
+      playerBadge.textContent = `${player.name} (${player.color})`;
+      playerBadge.className = gameState.currentTurn === 1
+        ? "bg-red-500 text-white font-bold text-xs sm:text-sm px-3 py-1 rounded-full border-2 border-slate-900"
+        : "bg-blue-600 text-white font-bold text-xs sm:text-sm px-3 py-1 rounded-full border-2 border-slate-900";
+
+      document.getElementById("quizQuestionText").textContent = q.question;
+
+      // Render 4 tombol opsi (A, B, C, D)
+      const optionsContainer = document.getElementById("quizOptionsContainer");
+      optionsContainer.innerHTML = "";
+      const letters = ["A", "B", "C", "D"];
+
+      q.options.forEach((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.id = `quizOptionBtn-${idx}`;
+        btn.onclick = () => submitQuizAnswer(idx);
+        btn.className = "btn-chunky w-full text-left bg-slate-50 hover:bg-blue-50 text-slate-900 border-3 border-slate-900 p-3.5 rounded-2xl font-bold text-sm sm:text-base flex items-start gap-3 transition";
+        btn.innerHTML = `
+          <span class="w-8 h-8 rounded-xl bg-slate-900 text-white font-extrabold flex items-center justify-center shrink-0 text-sm">
+            ${letters[idx]}
+          </span>
+          <span class="pt-0.5 leading-snug">${optText}</span>
+        `;
+        optionsContainer.appendChild(btn);
+      });
+
+      modal.classList.remove("hidden");
+    }
+
+    function submitQuizAnswer(selectedIndex) {
+      if (gameState.quizAnswered) return;
+      gameState.quizAnswered = true;
+
+      const q = gameState.currentQuiz;
+      const isCorrect = selectedIndex === q.correct;
+      const player = gameState.players[gameState.currentTurn];
+
+      // Nonaktifkan semua tombol opsi dan beri indikator warna Hijau/Merah
+      q.options.forEach((_, idx) => {
+        const btn = document.getElementById(`quizOptionBtn-${idx}`);
+        btn.disabled = true;
+        btn.classList.remove("hover:bg-blue-50", "bg-slate-50");
+
+        if (idx === q.correct) {
+          btn.classList.add("bg-green-500", "text-white", "border-slate-900");
+          if (isCorrect) btn.classList.add("correct-sparkle");
+        } else if (idx === selectedIndex && !isCorrect) {
+          btn.classList.add("bg-red-500", "text-white", "border-slate-900", "wrong-shake");
+        } else {
+          btn.classList.add("bg-slate-100", "text-slate-500", "opacity-75");
+        }
+      });
+
+      const resultBanner = document.getElementById("quizResultBanner");
+      const resultText = document.getElementById("quizResultText");
+      const pointsEarned = document.getElementById("quizPointsEarned");
+
+      if (isCorrect) {
+        player.score += 10;
+        player.correct += 1;
+        playCorrectSound();
+
+        resultBanner.className = "p-3 rounded-xl font-extrabold text-sm sm:text-base flex items-center justify-between border-2 bg-green-100 text-green-900 border-green-500";
+        resultText.textContent = "🎉 Luar Biasa! Jawabanmu Benar!";
+        pointsEarned.textContent = "+10 Poin";
+        document.getElementById("gameStatusMessage").textContent =
+          `✅ ${player.name} menjawab benar di Kotak ${player.position} (+10 Poin)!`;
+      } else {
+        player.wrong += 1;
+        playWrongSound();
+
+        resultBanner.className = "p-3 rounded-xl font-extrabold text-sm sm:text-base flex items-center justify-between border-2 bg-red-100 text-red-900 border-red-500";
+        resultText.textContent = "❌ Kurang Tepat! Tetap Semangat Belajar!";
+        pointsEarned.textContent = "+0 Poin";
+        document.getElementById("gameStatusMessage").textContent =
+          `❌ Jawaban ${player.name} belum tepat, namun pion tetap bertahan di Kotak ${player.position}.`;
+      }
+
+      document.getElementById("quizExplanationText").textContent = q.explanation;
+      document.getElementById("quizFeedbackSection").classList.remove("hidden");
+      updateGameHUD();
+    }
+
+    function closeQuizAndNextTurn() {
+      playClickSound();
+      document.getElementById("quizModal").classList.add("hidden");
+      switchTurn();
+    }
+
+    /* =========================================================================
+       11. HALAMAN GAME OVER & PENYIMPANAN LEADERBOARD
+       ========================================================================= */
+    function handlePlayerVictory(winnerNum) {
+      const runnerUpNum = winnerNum === 1 ? 2 : 1;
+      const winner = gameState.players[winnerNum];
+      const runnerUp = gameState.players[runnerUpNum];
+
+      playVictorySound();
+      startConfetti();
+
+      // Hitung persentase keberhasilan kuis pemenang
+      const totalWinnerAnswered = winner.correct + winner.wrong;
+      const winnerAccuracy = totalWinnerAnswered > 0
+        ? Math.round((winner.correct / totalWinnerAnswered) * 100)
+        : 100;
+
+      const totalRunnerAnswered = runnerUp.correct + runnerUp.wrong;
+      const runnerAccuracy = totalRunnerAnswered > 0
+        ? Math.round((runnerUp.correct / totalRunnerAnswered) * 100)
+        : 0;
+
+      // Simpan hasil kedua pemain ke localStorage Leaderboard
+      saveToLeaderboard({
+        name: winner.name,
+        className: gameState.className,
+        schoolName: gameState.schoolName,
+        score: winner.score,
+        correct: winner.correct,
+        wrong: winner.wrong,
+        rolls: winner.rolls,
+        accuracy: winnerAccuracy,
+        timestamp: Date.now() + 1
+      });
+
+      saveToLeaderboard({
+        name: runnerUp.name,
+        className: gameState.className,
+        schoolName: gameState.schoolName,
+        score: runnerUp.score,
+        correct: runnerUp.correct,
+        wrong: runnerUp.wrong,
+        rolls: runnerUp.rolls,
+        accuracy: runnerAccuracy,
+        timestamp: Date.now()
+      });
+
+      // Isi data pada Halaman Game Over
+      document.getElementById("goWinnerName").textContent = `${winner.name} (Pion ${winner.color})`;
+      document.getElementById("goClassSchool").textContent = `Kelas ${gameState.className} • ${gameState.schoolName}`;
+      document.getElementById("goWinnerScore").textContent = `${winner.score} Poin`;
+      document.getElementById("goWinnerCorrect").textContent = winner.correct;
+      document.getElementById("goWinnerWrong").textContent = winner.wrong;
+      document.getElementById("goWinnerAccuracy").textContent = `${winnerAccuracy}%`;
+
+      document.getElementById("goRunnerUpName").textContent = `${runnerUp.name} (${runnerUp.score} Poin)`;
+      document.getElementById("goFinalPositions").textContent =
+        `${winner.name} (Kotak ${winner.position}) vs ${runnerUp.name} (Kotak ${runnerUp.position})`;
+      document.getElementById("goWinnerRolls").textContent = `${winner.rolls} kali`;
+      document.getElementById("goTotalRolls").textContent = `${gameState.totalDiceRolls} kali`;
+
+      // Pesan motivasi dinamis
+      const motivationEl = document.getElementById("victoryMotivationText");
+      if (winnerAccuracy >= 80) {
+        motivationEl.textContent = "🌟 Luar biasa! Kamu menguasai konsep Pesawat Sederhana layaknya ilmuwan sejati!";
+      } else if (winnerAccuracy >= 50) {
+        motivationEl.textContent = "👏 Kerja bagus! Terus berlatih soal Tuas, Katrol, dan Bidang Miring agar makin mahir!";
+      } else {
+        motivationEl.textContent = "💪 Selamat atas kemenanganmu! Baca kembali pembahasan kuis agar pemahaman IPA-mu semakin kuat!";
+      }
+
+      gameState.isBusy = false;
+      showScreen("gameOverScreen");
+    }
+
+    /* =========================================================================
+       12. SISTEM LEADERBOARD (LOCALSTORAGE)
+       ========================================================================= */
+    function getLeaderboardData() {
+      try {
+        const raw = localStorage.getItem(LEADERBOARD_STORAGE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveToLeaderboard(entry) {
+      const list = getLeaderboardData();
+      list.push(entry);
+
+      // Urutkan: 1) Skor tertinggi, 2) Persentase benar tertinggi, 3) Data terbaru
+      list.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        if (b.accuracy !== a.accuracy) return b.accuracy - a.accuracy;
+        return (b.timestamp || 0) - (a.timestamp || 0);
+      });
+
+      try {
+        localStorage.setItem(LEADERBOARD_STORAGE_KEY, JSON.stringify(list));
+      } catch (e) {
+        // Abaikan jika kuota storage penuh
+      }
+    }
+
+    function openLeaderboard(fromScreen) {
+      playClickSound();
+      stopConfetti();
+      gameState.previousScreen = fromScreen || "start";
+      renderLeaderboard();
+      showScreen("leaderboardScreen");
+    }
+
+    function closeLeaderboard() {
+      playClickSound();
+      if (gameState.previousScreen === "gameover") {
+        showScreen("gameOverScreen");
+      } else {
+        showScreen("startScreen");
+      }
+    }
+
+    function renderLeaderboard() {
+      const data = getLeaderboardData();
+
+      // Update Podium 3 Besar
+      const podiumIds = ["podium1", "podium2", "podium3"];
+      const medals = ["🥇", "🥈", "🥉"];
+      const titles = ["Juara 1 • Raja Pesawat Sederhana", "Juara 2", "Juara 3"];
+
+      podiumIds.forEach((id, idx) => {
+        const el = document.getElementById(id);
+        const item = data[idx];
+        if (item) {
+          el.innerHTML = `
+            <div class="${idx === 0 ? 'text-4xl' : 'text-3xl'} mb-1">${medals[idx]}</div>
+            <span class="text-xs font-extrabold uppercase ${idx === 0 ? 'text-amber-700' : 'text-slate-600'}">${titles[idx]}</span>
+            <p class="font-extrabold ${idx === 0 ? 'text-lg' : 'text-base'} text-slate-900 truncate px-1">${escapeHtml(item.name)}</p>
+            <p class="text-xs font-bold text-slate-600 truncate px-1">${escapeHtml(item.className)} • ${escapeHtml(item.schoolName)}</p>
+            <span class="mt-2 inline-block ${idx === 0 ? 'bg-yellow-400 border-2 border-slate-900 text-sm' : 'bg-white border border-slate-400 text-xs'} text-slate-900 font-extrabold px-3 py-1 rounded-full">
+              ${item.score} Poin (${item.accuracy}%)
+            </span>
+          `;
+        } else {
+          el.innerHTML = `
+            <div class="${idx === 0 ? 'text-4xl' : 'text-3xl'} mb-1 opacity-40">${medals[idx]}</div>
+            <span class="text-xs font-extrabold uppercase text-slate-400">${titles[idx]}</span>
+            <p class="font-extrabold text-base text-slate-400">Belum Ada Data</p>
+            <p class="text-xs font-bold text-slate-400">-</p>
+            <span class="mt-2 inline-block bg-slate-200 text-slate-500 font-extrabold text-xs px-3 py-1 rounded-full">0 Poin</span>
+          `;
+        }
+      });
+
+      // Update Tabel Daftar Skor Terbaik
+      const tbody = document.getElementById("leaderboardTableBody");
+      tbody.innerHTML = "";
+
+      if (data.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="py-8 px-4 text-center text-slate-500 font-bold">
+              Belum ada catatan skor tersimpan. Ayo mainkan game untuk mencetak rekor pertamamu! 🚀
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      data.forEach((item, index) => {
+        const rank = index + 1;
+        const rankBadge = rank === 1 ? "🥇 1" : rank === 2 ? "🥈 2" : rank === 3 ? "🥉 3" : `#${rank}`;
+        const rowBg = rank === 1 ? "bg-yellow-50/70" : rank % 2 === 0 ? "bg-slate-50" : "bg-white";
+
+        const tr = document.createElement("tr");
+        tr.className = `${rowBg} hover:bg-blue-50/60 transition`;
+        tr.innerHTML = `
+          <td class="py-3 px-3 sm:px-4 font-extrabold text-slate-900 whitespace-nowrap">${rankBadge}</td>
+          <td class="py-3 px-3 sm:px-4 font-extrabold text-blue-700">${escapeHtml(item.name)}</td>
+          <td class="py-3 px-3 sm:px-4 text-slate-700">${escapeHtml(item.className)}</td>
+          <td class="py-3 px-3 sm:px-4 text-slate-700">${escapeHtml(item.schoolName)}</td>
+          <td class="py-3 px-3 sm:px-4 text-center">
+            <span class="bg-amber-100 text-amber-800 border border-amber-400 px-2.5 py-0.5 rounded-full font-extrabold">
+              ${item.score}
+            </span>
+          </td>
+          <td class="py-3 px-3 sm:px-4 text-center text-green-700 font-extrabold">${item.correct} (${item.accuracy}%)</td>
+          <td class="py-3 px-3 sm:px-4 text-center text-slate-700">${item.rolls}x</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function openDeleteLeaderboardModal() {
+      playClickSound();
+      openCustomConfirm(
+        "Hapus Semua Data Leaderboard?",
+        "Semua catatan skor dan peringkat juara yang tersimpan di perangkat ini akan dihapus permanen.",
+        "🗑️",
+        () => {
+          localStorage.removeItem(LEADERBOARD_STORAGE_KEY);
+          closeCustomConfirm();
+          renderLeaderboard();
+          showToast("🗑️ Data Leaderboard berhasil dihapus!", "bg-slate-900 text-white");
+        }
+      );
+    }
+
+    function escapeHtml(str) {
+      if (typeof str !== "string") return "";
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    /* =========================================================================
+       13. MODAL KONFIRMASI KUSTOM
+       ========================================================================= */
+    let confirmCallback = null;
+
+    function openCustomConfirm(title, message, icon, onConfirm) {
+      document.getElementById("confirmModalTitle").textContent = title;
+      document.getElementById("confirmModalMessage").textContent = message;
+      document.getElementById("confirmModalIcon").textContent = icon;
+      confirmCallback = onConfirm;
+
+      const okBtn = document.getElementById("confirmOkBtn");
+      okBtn.onclick = () => {
+        playClickSound();
+        if (typeof confirmCallback === "function") {
+          confirmCallback();
+        }
+      };
+
+      document.getElementById("customConfirmModal").classList.remove("hidden");
+    }
+
+    function closeCustomConfirm() {
+      playClickSound();
+      document.getElementById("customConfirmModal").classList.add("hidden");
+      confirmCallback = null;
+    }
+
+    /* =========================================================================
+       14. ANIMASI KONFETI KEMENANGAN (CANVAS)
+       ========================================================================= */
+    let confettiAnimationId = null;
+    let confettiParticles = [];
+
+    function startConfetti() {
+      const canvas = document.getElementById("confettiCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.classList.remove("hidden");
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+
+      const colors = ["#EF4444", "#3B82F6", "#FACC15", "#22C55E", "#A855F7", "#F97316"];
+      confettiParticles = Array.from({ length: 120 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        w: Math.random() * 10 + 6,
+        h: Math.random() * 6 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        speedY: Math.random() * 3 + 2,
+        speedX: (Math.random() - 0.5) * 2.5,
+        angle: Math.random() * Math.PI * 2,
+        spin: (Math.random() - 0.5) * 0.15
+      }));
+
+      function animateConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confettiParticles.forEach(p => {
+          p.y += p.speedY;
+          p.x += p.speedX;
+          p.angle += p.spin;
+
+          if (p.y > canvas.height) {
+            p.y = -15;
+            p.x = Math.random() * canvas.width;
+          }
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.angle);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+
+        confettiAnimationId = requestAnimationFrame(animateConfetti);
+      }
+
+      animateConfetti();
+    }
+
+    function stopConfetti() {
+      if (confettiAnimationId) {
+        cancelAnimationFrame(confettiAnimationId);
+        confettiAnimationId = null;
+      }
+      const canvas = document.getElementById("confettiCanvas");
+      canvas.classList.add("hidden");
+    }
+
+    window.addEventListener("resize", () => {
+      const canvas = document.getElementById("confettiCanvas");
+      if (!canvas.classList.contains("hidden")) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    });
+
+    /* =========================================================================
+       15. INISIALISASI SAAT HALAMAN DIMUAT
+       ========================================================================= */
+    window.onload = function () {
+      renderDiceFace(1);
+    };
+  </script>
+</body>
+</html>
